@@ -20,7 +20,6 @@ class App
   def main
     entries = ClippingsParser::parse(@clippings_path)
     library = Library.new(entries)
-    library.clean_library
     OutputWriter::write_all(library, @output_dir)
   end
 

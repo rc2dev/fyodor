@@ -25,11 +25,8 @@ class OutputWriter
     file.puts "by #{book.author}"
     file.puts
 
-    if book.entries.count > 1
-      file.puts "#{book.entries.length} highlights and notes"
-    else
-      file.puts "#{book.entries.length} highlight or note"
-    end
+    file.puts "#{book.num_highlights} highlights and #{book.num_notes} notes"
+    file.puts "#{book.num_na} unrecognized" if book.num_na > 0
 
     file.puts
     file.puts "---"
@@ -38,7 +35,12 @@ class OutputWriter
 
   def self.write_entries(file, entries)
     entries.each do |entry|
-      file.puts "* #{entry.text}"
+      case entry.type
+      when "NOTE"
+        file.puts "* _#{entry.text}_"
+      else
+        file.puts "* #{entry.text}"
+      end
       file.puts
       file.puts "<sup>*#{entry.desc}*</sup>"
       file.puts

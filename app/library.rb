@@ -8,12 +8,10 @@ class Library
     entries.each do |entry|
       book = get_book(entry.book[:title], entry.book[:author])
       book.entries << entry
-    end    
-  end
+    end
 
-  def clean_library
-    @books.each { |book| book.clean_book }
-    @books.delete_if { |book| book.entries.count == 0 }
+    clean_library
+    set_type_counters
   end
 
 
@@ -27,5 +25,18 @@ class Library
     end
 
     book
+  end
+
+  def clean_library
+    @books.each { |book| book.clean_book }
+    @books.delete_if { |book| book.entries.count == 0 }
+  end
+
+  def set_type_counters
+    @books.each do |book|
+      book.num_notes = book.entries.select { |entry| entry.type == Entry::TYPE_NOTE }.count
+      book.num_highlights = book.entries.select { |entry| entry.type == Entry::TYPE_HIGHLIGHT }.count
+      book.num_na = book.entries.select { |entry| entry.type == Entry::TYPE_NA }.count
+    end
   end
 end

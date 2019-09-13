@@ -23,6 +23,7 @@ class ClippingsParser
         cur_entry.book = get_book(line)
       when 2
         cur_entry.desc = get_desc(line)
+        cur_entry.type = get_type(line)
       when 4..Float::INFINITY
         cur_entry.text << get_text(line)
       end
@@ -43,6 +44,16 @@ class ClippingsParser
 
   def self.get_desc(line)
     line[/^- (.*)\r?\n$/, 1].strip
+  end
+
+  def self.get_type(line)
+    if line =~ /^- Sua nota/
+      Entry::TYPE_NOTE
+    elsif line =~ /^- Seu destaque/
+      Entry::TYPE_HIGHLIGHT
+    else
+      Entry::TYPE_NA
+    end
   end
 
   def self.get_text(line)
