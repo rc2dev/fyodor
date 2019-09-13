@@ -8,7 +8,7 @@ class Library
     entries.each do |entry|
       book = get_book(entry.book[:title], entry.book[:author])
       book.entries << entry
-    end
+    end    
   end
 
   def clean_library

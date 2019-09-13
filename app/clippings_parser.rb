@@ -1,6 +1,6 @@
 class ClippingsParser
 
-  SEPARATOR = "==========\r\n"
+  SEPARATOR = /^==========\r?\n$/
 
   # Parse MyClippings.txt into an array of entries
   def self.parse(clippings_path)
@@ -12,7 +12,7 @@ class ClippingsParser
       if $. == 1
         cur_entry = Entry.new
         entry_ln = 1
-      elsif line == SEPARATOR
+      elsif line =~ SEPARATOR
         entries << cur_entry
         cur_entry = Entry.new
         entry_ln = 0
@@ -37,12 +37,12 @@ class ClippingsParser
   private
 
   def self.get_book(line)
-    title, author = line.scan(/(.*) \((.*)\)/).flatten
+    title, author = line.scan(/^(.*) \((.*)\)\r?\n$/).flatten
     {title: title, author: author}
   end
 
   def self.get_desc(line)
-    line[/- (.*)\r?\n?/, 1].strip
+    line[/^- (.*)\r?\n$/, 1].strip
   end
 
   def self.get_text(line)
