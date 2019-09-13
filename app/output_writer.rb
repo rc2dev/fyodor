@@ -1,6 +1,7 @@
 class OutputWriter
 
   def self.write_all(library, output_dir)
+    puts "Writing #{library.books.count} files to #{output_dir}..."
     library.books.each do |book|
       write_md(book, output_dir)
     end
