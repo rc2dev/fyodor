@@ -1,9 +1,10 @@
 class Book
-  attr_accessor :name, :entries
-  attr_reader :filename
+  attr_accessor :entries
+  attr_reader :title, :author, :filename
 
-  def initialize(name)
-    @name = name
+  def initialize(title, author)
+    @title = title
+    @author = author
     @entries = []
     set_filename
   end
@@ -16,7 +17,8 @@ class Book
   private
 
   def set_filename
-    filename = name.strip
+    filename = "#{@author} - #{@title}"
+    filename.strip!
     filename.gsub!(/[?*:|\/"<>]/,"_")
     @filename = filename + ".md"
   end
@@ -24,8 +26,4 @@ class Book
   def rm_empty_entries
     @entries.select! { |entry| entry.text.strip != "" }
   end
-
-  # def rm_dup_entries
-
-  # end
 end

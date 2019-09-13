@@ -20,7 +20,7 @@ class ClippingsParser
 
       case entry_ln
       when 1
-        cur_entry.book = get_book_name(line)
+        cur_entry.book = get_book(line)
       when 2
         cur_entry.desc = get_desc(line)
       when 4..Float::INFINITY
@@ -36,8 +36,9 @@ class ClippingsParser
 
   private
 
-  def self.get_book_name(line)
-    line[/(.*) \(.*\)/, 1]
+  def self.get_book(line)
+    title, author = line.scan(/(.*) \((.*)\)/).flatten
+    {title: title, author: author}
   end
 
   def self.get_desc(line)
