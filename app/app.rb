@@ -15,8 +15,6 @@ class App
 
   def initialize
     check_args
-    @clippings_path = ARGV[0]
-    @output_dir = Pathname.new(ARGV[1])
     check_paths
 
     @config = ConfigGetter::config
@@ -33,11 +31,14 @@ class App
 
   private
 
-  def check_args
+  def get_args
     if ARGV.count != 2
       puts "Usage: #{$0} my_clippings_path output_dir"
       exit 1
     end
+
+    @clippings_path = ARGV[0]
+    @output_dir = Pathname.new(ARGV[1])
   end
 
   def check_paths

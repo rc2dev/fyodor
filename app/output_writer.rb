@@ -7,50 +7,47 @@ class OutputWriter
   end
 
   def write_all
-    puts <<~EOF
-      #{@library.books.count} books found.
-      #{"Writing to #{@output_dir}..." if @library.books.count > 0}
-    EOF
+    puts "#{@library.books.count} books found."
+    puts "Writing to #{@output_dir}..." if @library.books.count > 0
 
     @library.books.each do |book|
-      if ignore?(book)
-        puts "Ignored: #{book.author} - #{book.title}"
+      @book = book
+      if ignore?
+        puts "Ignored: #{@book.author} - #{@book.title}"
       else
-        write_md(book)
+        write
       end
     end
+    @book = nil
   end
 
 
   private
 
-  def write_md(book)
-    file_path = @output_dir + book.filename
-
-    file = File.open(file_path, "w")
-    file.puts(header(book))
-    file.puts(body(book))
-    file.close
+  def write
+    File.open(path, "w") do |f|
+      f.puts(header)
+      f.puts(body)
+    end
   end
 
-  def header(book)
-    header = <<~EOF
-    # #{book.title}
-    by #{book.author}
+  def header
+    return <<~EOF
+    # #{@book.title}
+    by #{@book.author}
 
-    #{book.num_highlights} highlights and #{book.num_notes} notes\
-    #{", #{book.num_na} unrecognized" if book.num_na > 0 }
+    #{@book.num_highlights} highlights and #{@book.num_notes} notes\
+    #{", #{@book.num_na} unrecognized" if @book.num_na > 0}
 
     ---
 
     EOF
-    header
   end
 
-  def body(book)
+  def body
     body = ""
 
-    book.entries.each do |entry|
+    @book.entries.each do |entry|
       body += <<~EOF
       #{entry.type == Entry::TYPE_NOTE ?  "* _#{entry.text}_" : "* #{entry.text}" }
 
@@ -62,11 +59,11 @@ class OutputWriter
     body
   end
 
-  def ignore?(book)
+  def ignore?
     if @ignored_books.nil?
       false
     else
-      ! @ignored_books.find { |ignored| ignored["title"] == book.title && ignored["author"] == book.author }.nil?
+      ! @ignored_books.find { |ignored| ignored["title"] == @book.title && ignored["author"] == @book.author }.nil?
     end
   end
 end

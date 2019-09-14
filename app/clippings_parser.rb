@@ -26,7 +26,7 @@ class ClippingsParser
 
       case entry_ln
       when 1
-        cur_entry.book = get_book(line)
+        cur_entry.book_info = get_book_info(line)
       when 2
         cur_entry.desc = get_desc(line)
         cur_entry.type = get_type(line)
@@ -43,7 +43,7 @@ class ClippingsParser
 
   private
 
-  def get_book(line)
+  def get_book_info(line)
     title, author = line.scan(/^(.*) \((.*)\)\r?\n$/).flatten
     {title: title, author: author}
   end
