@@ -13,8 +13,8 @@ class Book
     set_counters
   end
 
-  def filename
-    "#{@author} - #{@title}".strip.gsub(/[?*:|\/"<>]/,"_") + ".md"
+  def basename
+    "#{@author} - #{@title}".strip.gsub(/[?*:|\/"<>]/,"_")
   end
 
 

@@ -66,4 +66,16 @@ class OutputWriter
       ! @ignored_books.find { |ignored| ignored["title"] == @book.title && ignored["author"] == @book.author }.nil?
     end
   end
+
+  def path
+    path = @output_dir + "#{@book.basename}.md"
+
+    i = 2
+    while(path.exist?)
+      path = @output_dir + "#{@book.basename} - #{i}.md"
+      i += 1
+    end
+
+    path
+  end
 end
