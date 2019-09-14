@@ -2,9 +2,12 @@
 
 require_relative "book"
 require_relative "clippings_parser"
+require_relative "config_getter"
 require_relative "entry"
+require_relative "hash"
 require_relative "library"
 require_relative "output_writer"
+require "toml"
 require "pathname"
 
 
@@ -15,10 +18,13 @@ class App
     @clippings_path = ARGV[0]
     @output_dir = Pathname.new(ARGV[1])
     check_paths
+
+    @config = ConfigGetter::config
   end
 
   def main
-    entries = ClippingsParser::parse(@clippings_path)
+    parser = ClippingsParser.new(@clippings_path, @config["parser"])
+    entries = parser.parse
     library = Library.new(entries)
     OutputWriter::write_all(library, @output_dir)
   end

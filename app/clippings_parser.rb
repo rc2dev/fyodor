@@ -2,13 +2,19 @@ class ClippingsParser
 
   SEPARATOR = /^==========\r?\n$/
 
-  # Parse MyClippings.txt into an array of entries
-  def self.parse(clippings_path)
+  def initialize(clippings_path, parser_config)
+    @path = clippings_path
+    @config = parser_config
+    set_type_regexes
+  end
+
+  # Parse MyClippings.txt into an array of entries.
+  def parse
     cur_entry = nil
     entry_ln = nil
     entries = []
 
-    File.open(clippings_path).each do |line|
+    File.open(@path).each do |line|
       if $. == 1
         cur_entry = Entry.new
         entry_ln = 1
@@ -37,26 +43,32 @@ class ClippingsParser
 
   private
 
-  def self.get_book(line)
+  def get_book(line)
     title, author = line.scan(/^(.*) \((.*)\)\r?\n$/).flatten
     {title: title, author: author}
   end
 
-  def self.get_desc(line)
+  def get_desc(line)
     line[/^- (.*)\r?\n$/, 1].strip
   end
 
-  def self.get_type(line)
-    if line =~ /^- Sua nota/
+  def get_type(line)
+    if line =~ @type_regexes[:note]
       Entry::TYPE_NOTE
-    elsif line =~ /^- Seu destaque/
+    elsif line =~ @type_regexes[:highlight]
       Entry::TYPE_HIGHLIGHT
     else
       Entry::TYPE_NA
     end
   end
 
-  def self.get_text(line)
+  def get_text(line)
     line.chomp.strip
   end
+
+  def set_type_regexes
+    @type_regexes = { note: /^- #{Regexp.quote(@config["note_str"])}/,
+                      highlight: /^- #{Regexp.quote(@config["highlight_str"])}/ }
+  end
+
 end

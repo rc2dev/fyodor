@@ -1,0 +1,3 @@
+[parser]
+highlight_str = "Your Highlight"
+note_str = "Your Note"
