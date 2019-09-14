@@ -14,9 +14,7 @@ require "pathname"
 class App
 
   def initialize
-    check_args
-    check_paths
-
+    get_args
     @config = ConfigGetter::config
   end
 
@@ -33,24 +31,20 @@ class App
 
   def get_args
     if ARGV.count != 2
-      puts "Usage: #{$0} my_clippings_path output_dir"
+      puts "Usage: #{File.basename($0)} my_clippings_path output_dir"
       exit 1
     end
 
-    @clippings_path = ARGV[0]
-    @output_dir = Pathname.new(ARGV[1])
+    begin
+      @clippings_path = get_path(ARGV[0])
+      @output_dir = get_path(ARGV[1])
+    rescue SystemCallError => e
+      abort(e.message)
+    end
   end
 
-  def check_paths
-    unless File.directory?(@output_dir)
-      puts "#{@output_dir} is not a directory"
-      exit 1
-    end
-
-    unless File.file?(@clippings_path)
-      puts "#{@clippings_path} is not a file"
-      exit 1
-    end
+  def get_path(path)
+    Pathname.new(path).expand_path.realpath
   end
 end
 
