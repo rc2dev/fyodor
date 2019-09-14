@@ -2,9 +2,8 @@ class OutputWriter
 
   def self.write_all(library, output_dir)
     puts "Writing #{library.books.count} files to #{output_dir}..."
-    library.books.each do |book|
-      write_md(book, output_dir)
-    end
+
+    library.books.each { |book| write_md(book, output_dir) }
   end
 
 
@@ -12,38 +11,39 @@ class OutputWriter
 
   def self.write_md(book, output_dir)
     file_path = output_dir + book.filename
+
     file = File.open(file_path, "w")
-
-    write_header(file, book)
-    write_entries(file, book.entries)
-
+    file.puts(header(book))
+    file.puts(body(book))
     file.close
   end
 
-  def self.write_header(file, book)
-    file.puts "# #{book.title}"
-    file.puts "by #{book.author}"
-    file.puts
+  def self.header(book)
+    header = <<~EOF
+    # #{book.title}
+    by #{book.author}
 
-    file.puts "#{book.num_highlights} highlights and #{book.num_notes} notes"
-    file.puts "#{book.num_na} unrecognized" if book.num_na > 0
+    #{book.num_highlights} highlights and #{book.num_notes} notes\
+    #{", #{book.num_na} unrecognized" if book.num_na > 0 }
 
-    file.puts
-    file.puts "---"
-    file.puts
+    ---
+
+    EOF
+    header
   end
 
-  def self.write_entries(file, entries)
-    entries.each do |entry|
-      case entry.type
-      when "NOTE"
-        file.puts "* _#{entry.text}_"
-      else
-        file.puts "* #{entry.text}"
-      end
-      file.puts
-      file.puts "<sup>*#{entry.desc}*</sup>"
-      file.puts
+  def self.body(book)
+    body = ""
+
+    book.entries.each do |entry|
+      body += <<~EOF
+      #{entry.type == Entry::TYPE_NOTE ?  "* _#{entry.text}_" : "* #{entry.text}" }
+
+      <sup>*#{entry.desc}*</sup>
+
+      EOF
     end
+
+    body
   end
 end
