@@ -26,7 +26,8 @@ class App
     parser = ClippingsParser.new(@clippings_path, @config["parser"])
     entries = parser.parse
     library = Library.new(entries)
-    OutputWriter::write_all(library, @output_dir)
+    writer = OutputWriter.new(library, @output_dir, @config["ignored_books"])
+    writer.write_all
   end
 
 

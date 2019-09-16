@@ -1,16 +1,31 @@
 class OutputWriter
 
-  def self.write_all(library, output_dir)
-    puts "Writing #{library.books.count} files to #{output_dir}..."
+  def initialize(library, output_dir, ignored_books)
+    @library = library
+    @output_dir = output_dir
+    @ignored_books = ignored_books
+  end
 
-    library.books.each { |book| write_md(book, output_dir) }
+  def write_all
+    puts <<~EOF
+      #{@library.books.count} books found.
+      #{"Writing to #{@output_dir}..." if @library.books.count > 0}
+    EOF
+
+    @library.books.each do |book|
+      if ignore?(book)
+        puts "Ignored: #{book.author} - #{book.title}"
+      else
+        write_md(book)
+      end
+    end
   end
 
 
   private
 
-  def self.write_md(book, output_dir)
-    file_path = output_dir + book.filename
+  def write_md(book)
+    file_path = @output_dir + book.filename
 
     file = File.open(file_path, "w")
     file.puts(header(book))
@@ -18,7 +33,7 @@ class OutputWriter
     file.close
   end
 
-  def self.header(book)
+  def header(book)
     header = <<~EOF
     # #{book.title}
     by #{book.author}
@@ -32,7 +47,7 @@ class OutputWriter
     header
   end
 
-  def self.body(book)
+  def body(book)
     body = ""
 
     book.entries.each do |entry|
@@ -45,5 +60,13 @@ class OutputWriter
     end
 
     body
+  end
+
+  def ignore?(book)
+    if @ignored_books.nil?
+      false
+    else
+      ! @ignored_books.find { |ignored| ignored["title"] == book.title && ignored["author"] == book.author }.nil?
+    end
   end
 end

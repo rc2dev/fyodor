@@ -1,3 +1,11 @@
 [parser]
 highlight_str = "Your Highlight"
 note_str = "Your Note"
+
+[[ignored_books]]
+title = "Crime and Punishment"
+author = "Fyodor Dostoyevsky"
+
+[[ignored_books]]
+title = "Just for Fun"
+author = "Linus Torvalds"
