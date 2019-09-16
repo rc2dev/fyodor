@@ -10,6 +10,7 @@ require_relative "md_writer"
 require_relative "output_writer"
 require "toml"
 require "pathname"
+require "set"
 
 
 class App
@@ -21,11 +22,8 @@ class App
 
   def main
     library = Library.new
-    parser = ClippingsParser.new(@clippings_path, @config["parser"], library)
-    parser.parse
-    library.finish
-    writer = OutputWriter.new(library, @output_dir, @config["ignored_books"])
-    writer.write_all
+    ClippingsParser.new(@clippings_path, @config["parser"], library).parse
+    OutputWriter.new(library, @output_dir, @config["ignored_books"]).write_all
   end
 
 
@@ -51,5 +49,4 @@ class App
 end
 
 
-app = App.new
-app.main
+App.new.main

@@ -27,6 +27,7 @@ class ClippingsParser
   end
 
   def new_entry
+    @library.add_entry(@title, @author, @entry)
     @entry_ln = 0
     @entry = Entry.new
   end
@@ -34,8 +35,7 @@ class ClippingsParser
   def parse_line
     case @entry_ln
     when 1
-      book = @library.book(*parse_title_author)
-      book.entries << @entry
+      @title, @author = parse_title_author
     when 2
       @entry.desc = parse_desc
       @entry.type = parse_type

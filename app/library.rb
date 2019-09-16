@@ -1,22 +1,28 @@
 class Library
+  include Enumerable
 
-  attr_reader :books
-  
   def initialize
     @books = []
   end
 
+  def add_entry(title, author, entry)
+    return if entry.empty?
+    book(title, author) << entry
+  end
+
+  def each &block
+    @books.each { |book| block.call(book) }
+  end
+
+
+  private
+
   def book(title, author)
-    book = @books.find { |book| book.title == title && book.author == author }
+    book = find { |book| book.title == title && book.author == author }
     if book.nil?
       book = Book.new(title, author)
       @books << book
     end
     book
-  end
-
-  def finish
-    @books.each { |book| book.finish }
-    @books.delete_if { |book| book.entries.count == 0 }
   end
 end

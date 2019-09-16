@@ -7,15 +7,15 @@ class OutputWriter
   end
 
   def write_all
-    puts "#{@library.books.count} books found."
-    puts "Writing to #{@output_dir}..." if @library.books.count > 0
+    puts "#{@library.count} books found."
+    puts "Writing to #{@output_dir}..." if @library.count > 0
 
-    @library.books.each do |book|
-      if ignore?(book)
-        puts "Ignored: #{book.author} - #{book.title}"
+    @library.each do |book|
+      @book = book
+      if ignore?
+        puts "Ignored: #{@book.author} - #{@book.title}"
       else
-        md_writer = MdWriter.new(book, path(book))
-        md_writer.write
+        MdWriter.new(@book, path).write
       end
     end
   end
@@ -23,20 +23,20 @@ class OutputWriter
 
   private
 
-  def ignore?(book)
+  def ignore?
     if @ignored_books.nil?
       false
     else
-      ! @ignored_books.find { |ignored| ignored["title"] == book.title && ignored["author"] == book.author }.nil?
+      ! @ignored_books.find { |ignored| ignored["title"] == @book.title && ignored["author"] == @book.author }.nil?
     end
   end
 
-  def path(book)
-    path = @output_dir + "#{book.basename}.md"
+  def path
+    path = @output_dir + "#{@book.basename}.md"
 
     i = 2
     while(path.exist?)
-      path = @output_dir + "#{book.basename} - #{i}.md"
+      path = @output_dir + "#{@book.basename} - #{i}.md"
       i += 1
     end
 

@@ -16,14 +16,23 @@ class Entry
     @text.strip == "" unless @type == TYPE[:bookmark] || @type == TYPE[:na]
   end
 
-  def uniq_info
-    # Notes can have equal text, eg: TODO reminders on a document.
-    #   And all bookmarks have no text.
-    #   Highlights and clips with equal text are probably useless.
-    if @type == TYPE[:note] || @type == TYPE[:bookmark] || type == TYPE[:na]
-      @desc
+  def ==(other)
+    return false if type != other.type
+
+    if type == TYPE[:highlight] || type == TYPE[:clip]
+      text == other.text
     else
-      @text
+      text == other.text && desc == other.desc
+    end
+  end
+
+  alias eql? ==
+
+  def hash
+    if type == TYPE[:highlight] || type == TYPE[:clip]
+      type.hash ^ text.hash
+    else
+      type.hash ^ text.hash ^ desc.hash
     end
   end
 end

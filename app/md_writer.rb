@@ -41,7 +41,7 @@ class MdWriter
 
   def header_counts
     output = ""
-    @book.count.each do |type, n|
+    @book.count_types.each do |type, n|
       output += "#{n} #{pluralize(type, n)}, " if n > 0
     end
 
@@ -53,7 +53,7 @@ class MdWriter
   end
 
   def body
-    entries = @book.entries.select { |entry| entry.type != Entry::TYPE[:bookmark] }
+    entries = @book.reject { |entry| entry.type == Entry::TYPE[:bookmark] }
     return if entries.count == 0
 
     output = "\n---\n\n"
@@ -65,7 +65,7 @@ class MdWriter
   end
 
   def bookmarks
-    bookmarks = @book.by_type(Entry::TYPE[:bookmark])
+    bookmarks = @book.select { |entry| entry.type == Entry::TYPE[:bookmark] }
     return if bookmarks.count == 0
 
     output = "\n---\n\n"
