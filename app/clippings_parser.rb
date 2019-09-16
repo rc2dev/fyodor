@@ -56,15 +56,15 @@ class ClippingsParser
 
   def parse_type
     if @line =~ regex_id[:note]
-      Entry::TYPE_NOTE
+      Entry::TYPE[:note]
     elsif @line =~ regex_id[:highlight]
-      Entry::TYPE_HIGHLIGHT
+      Entry::TYPE[:highlight]
     elsif @line =~ regex_id[:bookmark]
-      Entry::TYPE_BOOKMARK
+      Entry::TYPE[:bookmark]
     elsif @line =~ regex_id[:clip]
-      Entry::TYPE_CLIP
+      Entry::TYPE[:clip]
     else
-      Entry::TYPE_NA
+      Entry::TYPE[:na]
     end
   end
 

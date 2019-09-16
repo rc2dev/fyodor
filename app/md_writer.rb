@@ -1,5 +1,18 @@
 class MdWriter
 
+  PLURAL = { Entry::TYPE[:highlight] => "highlights",
+             Entry::TYPE[:note] => "notes",
+             Entry::TYPE[:bookmark] => "bookmarks",
+             Entry::TYPE[:clip] => "clips",
+             Entry::TYPE[:na] => "unrecognized" }
+
+  SINGULAR = { Entry::TYPE[:highlight] => "highlight",
+               Entry::TYPE[:note] => "note",
+               Entry::TYPE[:bookmark] => "bookmark",
+               Entry::TYPE[:clip] => "clip",
+               Entry::TYPE[:na] => "unrecognized" }
+
+
   def initialize(book, path)
     @book = book
     @path = path
@@ -20,26 +33,24 @@ class MdWriter
     # #{@book.title}
     #{"by #{@book.author}" unless @book.author.to_s.empty?}
 
-    #{types_counter}
+    #{header_counts}
 
     ---
 
     EOF
   end
 
-  def types_counter
+  def header_counts
     output = ""
-    highlights = @book.num_highlights
-    notes = @book.num_notes
-    na = @book.num_na
+    @book.count.each do |type, n|
+      output += "#{n} #{pluralize(type, n)}, " if n > 0
+    end
 
-    highlights_lbl = highlights == 1 ? "highlight" : "highlights"
-    notes_lbl = notes == 1 ? "note" : "notes"
-    na_lbl = "unrecognized"
+    output.delete_suffix!(", ")
+  end
 
-    output += "\n#{highlights} #{highlights_lbl} and #{notes} #{notes_lbl}" if highlights > 0 || notes > 0
-    output += "\n#{na} #{na_lbl}" if na > 0
-    output
+  def pluralize(type, n)
+    n == 1 ? SINGULAR[type] : PLURAL[type]
   end
 
   def body
@@ -47,7 +58,7 @@ class MdWriter
 
     @book.entries.each do |entry|
       body += <<~EOF
-      #{entry.type == Entry::TYPE_NOTE ?  "* _#{entry.text}_" : "* #{entry.text}" }
+      #{entry.type == Entry::TYPE[:note] ?  "* _#{entry.text}_" : "* #{entry.text}" }
 
       <sup>*#{entry.desc}*</sup>
 
@@ -56,5 +67,4 @@ class MdWriter
 
     body
   end
-
 end
