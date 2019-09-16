@@ -45,7 +45,9 @@ class ClippingsParser
   end
 
   def parse_title_author
-    @line.scan(regex_cap[:title_author]).first
+    title, author = @line.scan(regex_cap[:title_author]).first
+    title = @line.chomp.strip if title.nil?
+    [title, author]
   end
 
   def parse_desc

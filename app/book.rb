@@ -3,6 +3,8 @@ class Book
   attr_reader :title, :author, :num_notes, :num_highlights, :num_na
 
   def initialize(title, author)
+    raise "Book title can't be empty" if title.to_s.empty?
+
     @title = title
     @author = author
     @entries = []
@@ -15,7 +17,8 @@ class Book
   end
 
   def basename
-    "#{@author} - #{@title}".strip.gsub(/[?*:|\/"<>]/,"_")
+    base = @author.to_s.empty? ? @title : "#{@author} - #{@title}"
+    base.strip.gsub(/[?*:|\/"<>]/,"_")
   end
 
 

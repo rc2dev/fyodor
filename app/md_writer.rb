@@ -18,7 +18,7 @@ class MdWriter
   def header
     return <<~EOF
     # #{@book.title}
-    by #{@book.author}
+    #{"by #{@book.author}" unless @book.author.to_s.empty?}
 
     #{types_counter}
 
