@@ -6,7 +6,7 @@ class Entry
            clip: "clip",
            na: "na" }
 
-  attr_accessor :desc, :type, :text
+  attr_accessor :desc, :type, :loc, :page, :time, :text
 
   def initialize
     @text = ""

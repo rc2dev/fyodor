@@ -9,7 +9,10 @@ class ConfigGetter
       "highlight" => "Your Highlight",
       "note" => "Your Note",
       "bookmark" => "Your Bookmark",
-      "clip" => "Clip This Article"
+      "clip" => "Clip This Article",
+      "loc" => "Location",
+      "page" => "page",
+      "time" => "Added on"
     }
   }
 

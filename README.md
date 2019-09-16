@@ -28,7 +28,7 @@ $ git clone https://github.com/rccavalcanti/fyodor.git
 
 ## Configuration
 
-If your Kindle is not in English, you should inform how the notes, highlights, etc. are called in your clippings file. You do this in the config file, in `parser` section.
+If your Kindle is not in English, you should inform some strings from your clippings file. That is how _highlight_, _note_, _page_, etc. are called there. You do this in the config file, in `parser` section.
 
 You can also ask the program to ignore some books, setting them in `ignored_books` section.
 

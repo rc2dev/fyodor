@@ -39,6 +39,9 @@ class ClippingsParser
     when 2
       @entry.desc = parse_desc
       @entry.type = parse_type
+      @entry.loc = parse_loc
+      @entry.page = parse_page
+      @entry.time = parse_time
     when 4..Float::INFINITY
       @entry.text << parse_text
     end
@@ -68,6 +71,18 @@ class ClippingsParser
     end
   end
 
+  def parse_loc
+    @line[regex_cap[:loc], 1]
+  end
+
+  def parse_page
+    @line[regex_cap[:page], 1]
+  end
+
+  def parse_time
+    @line[regex_cap[:time], 1].chomp.strip
+  end
+
   def parse_text
     @line.chomp.strip
   end
@@ -82,6 +97,9 @@ class ClippingsParser
 
   def regex_cap
     { title_author: /^(.*) \((.*)\)\r?\n$/,
-      desc: /^- (.*)$/ }
+      desc: /^- (.*)$/,
+      loc: /#{Regexp.quote(@config["loc"])} ([^\s]+)/,
+      page: /#{Regexp.quote(@config["page"])} ([^\s]+)/,
+      time: /#{Regexp.quote(@config["time"])} (.*)$/ }
   end
 end

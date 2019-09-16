@@ -44,7 +44,6 @@ class MdWriter
     @book.count_types.each do |type, n|
       output += "#{n} #{pluralize(type, n)}, " if n > 0
     end
-
     output.delete_suffix!(", ")
   end
 
@@ -56,10 +55,10 @@ class MdWriter
     entries = @book.reject { |entry| entry.type == Entry::TYPE[:bookmark] }
     return if entries.count == 0
 
-    output = "\n---\n\n"
+    output = "---\n\n"
     entries.each do |entry|
-      output += entry.type == Entry::TYPE[:note] ?  "* _#{entry.text}_\n" : "* #{entry.text}\n"
-      output += "\n<sup>*#{entry.desc}*</sup>\n\n"
+      output += "> #{entry_text(entry)}\n\n"
+      output += "<p style=\"text-align: right;\"><sup>#{entry_info(entry)}</sup></p>\n\n"
     end
     output
   end
@@ -68,9 +67,37 @@ class MdWriter
     bookmarks = @book.select { |entry| entry.type == Entry::TYPE[:bookmark] }
     return if bookmarks.count == 0
 
-    output = "\n---\n\n"
+    output = "---\n\n"
     output += "## Bookmarks\n\n"
-    bookmarks.each { |bookmark| output +=  "* #{bookmark.desc}\n" }
+    bookmarks.each do |bookmark|
+      output += "* #{bookmark_text(bookmark)}\n\n"
+      output += "<p style=\"text-align: right;\"><sup>#{bookmark_info(bookmark)}</p></sup>\n\n"
+    end
     output
+  end
+
+  def entry_text(entry)
+    entry.type == Entry::TYPE[:note] ?  "_#{entry.text}_" : "#{entry.text}"
+  end
+
+  def entry_info(entry)
+    output = SINGULAR[entry.type] + " @ "
+    output += "page #{entry.page}, " unless entry.page.nil?
+    output += "loc. #{entry.loc}" unless entry.loc.nil?
+    output.delete_suffix!(", ")
+
+    output += " [#{entry.time}]"
+    output
+  end
+
+  def bookmark_text(bookmark)
+    output = ""
+    output += "page #{bookmark.page}, " unless bookmark.page.nil?
+    output += "loc. #{bookmark.loc}" unless bookmark.loc.nil?
+    output.delete_suffix!(", ")
+  end
+
+  def bookmark_info(bookmark)
+    "[#{bookmark.time}]"
   end
 end
