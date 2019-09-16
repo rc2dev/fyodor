@@ -10,6 +10,7 @@ class Library
     book(title, author) << entry
   end
 
+  # Required for Enumerable.
   def each &block
     @books.each { |book| block.call(book) }
   end

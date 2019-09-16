@@ -16,6 +16,12 @@ class Entry
     @text.strip == "" unless @type == TYPE[:bookmark] || @type == TYPE[:na]
   end
 
+  def type=(type)
+    raise ArgumentError, "Invalid Entry type" unless TYPE.value?(type)
+    @type = type
+  end
+
+  # Override the following methods, so it's easier to deduplicate Entries.
   def ==(other)
     return false if type != other.type
 

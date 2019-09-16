@@ -28,6 +28,7 @@ class Book
     result
   end
 
+  # Required for Enumerable
   def each &block
     @entries.each { |entry| block.call(entry) }
   end

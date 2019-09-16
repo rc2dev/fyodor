@@ -44,7 +44,7 @@ class MdWriter
     @book.count_types.each do |type, n|
       output += "#{n} #{pluralize(type, n)}, " if n > 0
     end
-    output.delete_suffix!(", ")
+    output.delete_suffix(", ")
   end
 
   def pluralize(type, n)
@@ -53,51 +53,46 @@ class MdWriter
 
   def body
     entries = @book.reject { |entry| entry.type == Entry::TYPE[:bookmark] }
-    return if entries.count == 0
+    entries.count == 0 ? "" : entries_render(entries)
+  end
 
+  def bookmarks
+    bookmarks = @book.select { |entry| entry.type == Entry::TYPE[:bookmark] }
+    bookmarks.count == 0 ? "" : entries_render(bookmarks, "Bookmarks")
+  end
+
+  def entries_render(entries, title=nil)
     output = "---\n\n"
+    output += "## #{title}\n\n" unless title.nil?
     entries.each do |entry|
-      output += "> #{entry_text(entry)}\n\n"
+      output += "#{entry_text(entry)}\n\n"
       output += "<p style=\"text-align: right;\"><sup>#{entry_info(entry)}</sup></p>\n\n"
     end
     output
   end
 
-  def bookmarks
-    bookmarks = @book.select { |entry| entry.type == Entry::TYPE[:bookmark] }
-    return if bookmarks.count == 0
-
-    output = "---\n\n"
-    output += "## Bookmarks\n\n"
-    bookmarks.each do |bookmark|
-      output += "* #{bookmark_text(bookmark)}\n\n"
-      output += "<p style=\"text-align: right;\"><sup>#{bookmark_info(bookmark)}</p></sup>\n\n"
-    end
-    output
-  end
-
   def entry_text(entry)
-    entry.type == Entry::TYPE[:note] ?  "_#{entry.text}_" : "#{entry.text}"
+    case entry.type
+    when Entry::TYPE[:bookmark]
+      "* #{entry_page(entry)}"
+    when Entry::TYPE[:note]
+      "> _#{entry.text}_"
+    else
+      "> #{entry.text}"
+    end
   end
 
   def entry_info(entry)
-    output = SINGULAR[entry.type] + " @ "
-    output += "page #{entry.page}, " unless entry.page.nil?
-    output += "loc. #{entry.loc}" unless entry.loc.nil?
-    output.delete_suffix!(", ")
-
-    output += " [#{entry.time}]"
-    output
+    case entry.type
+    when Entry::TYPE[:bookmark]
+      "[#{entry.time}]"
+    else
+      SINGULAR[entry.type] + " @ " + entry_page(entry) + " [#{entry.time}]"
+    end
   end
 
-  def bookmark_text(bookmark)
-    output = ""
-    output += "page #{bookmark.page}, " unless bookmark.page.nil?
-    output += "loc. #{bookmark.loc}" unless bookmark.loc.nil?
-    output.delete_suffix!(", ")
-  end
-
-  def bookmark_info(bookmark)
-    "[#{bookmark.time}]"
+  def entry_page(entry)
+    ((entry.page.nil? ? "" : "page #{entry.page}, ") +
+      (entry.loc.nil? ? "" : "loc. #{entry.loc}")).delete_suffix(", ")
   end
 end
