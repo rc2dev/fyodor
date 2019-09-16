@@ -22,6 +22,7 @@ class MdWriter
     File.open(@path, "w") do |f|
       f.puts(header)
       f.puts(body)
+      f.puts(bookmarks)
     end
   end
 
@@ -34,8 +35,6 @@ class MdWriter
     #{"by #{@book.author}" unless @book.author.to_s.empty?}
 
     #{header_counts}
-
-    ---
 
     EOF
   end
@@ -54,17 +53,24 @@ class MdWriter
   end
 
   def body
-    body = ""
+    entries = @book.entries.select { |entry| entry.type != Entry::TYPE[:bookmark] }
+    return if entries.count == 0
 
-    @book.entries.each do |entry|
-      body += <<~EOF
-      #{entry.type == Entry::TYPE[:note] ?  "* _#{entry.text}_" : "* #{entry.text}" }
-
-      <sup>*#{entry.desc}*</sup>
-
-      EOF
+    output = "\n---\n\n"
+    entries.each do |entry|
+      output += entry.type == Entry::TYPE[:note] ?  "* _#{entry.text}_\n" : "* #{entry.text}\n"
+      output += "\n<sup>*#{entry.desc}*</sup>\n\n"
     end
+    output
+  end
 
-    body
+  def bookmarks
+    bookmarks = @book.by_type(Entry::TYPE[:bookmark])
+    return if bookmarks.count == 0
+
+    output = "\n---\n\n"
+    output += "## Bookmarks\n\n"
+    bookmarks.each { |bookmark| output +=  "* #{bookmark.desc}\n" }
+    output
   end
 end
