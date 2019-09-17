@@ -68,6 +68,7 @@ class ClippingsParser
 
   def parse_loc
     @entry.loc = @line[regex_cap[:loc], 1]
+    @entry.loc_start = @line[regex_cap[:loc_start], 1]
   end
 
   def parse_page
@@ -97,6 +98,7 @@ class ClippingsParser
     { title_author: /^(.*) \((.*)\)\r?\n$/,
       desc: /^- (.*)$/,
       loc: /#{Regexp.quote(@config["loc"])} ([^\s]+)/,
+      loc_start: /#{Regexp.quote(@config["loc"])} (\d+)(-\d+)?/,
       page: /#{Regexp.quote(@config["page"])} ([^\s]+)/,
       time: /#{Regexp.quote(@config["time"])} (.*)$/ }
   end

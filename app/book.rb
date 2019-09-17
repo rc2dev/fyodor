@@ -8,7 +8,7 @@ class Book
 
     @title = title
     @author = author
-    @entries = Set.new
+    @entries = SortedSet.new
   end
 
   def <<(entry)
@@ -28,7 +28,7 @@ class Book
     result
   end
 
-  # Required for Enumerable
+  # Required for Enumerable.
   def each &block
     @entries.each { |entry| block.call(entry) }
   end

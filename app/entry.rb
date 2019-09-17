@@ -6,7 +6,7 @@ class Entry
            clip: "clip",
            na: "na" }
 
-  attr_accessor :desc, :type, :loc, :page, :time, :text
+  attr_accessor :desc, :type, :loc, :loc_start, :page, :time, :text
 
   def initialize
     @text = ""
@@ -25,7 +25,17 @@ class Entry
     @type = type
   end
 
-  # Override the following methods, so it's easier to deduplicate Entries.
+  # This is our comparable; it should be a number.
+  def loc_start=(loc_start)
+    @loc_start = loc_start.to_i
+  end
+
+  # Override this method to use a SortedSet.
+  def <=>(other)
+    loc_start <=> other.loc_start
+  end
+
+  # Override the following methods for deduplication.
   def ==(other)
     return false if type != other.type
 
