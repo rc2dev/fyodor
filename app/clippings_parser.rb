@@ -53,7 +53,7 @@ class ClippingsParser
   end
 
   def parse_desc
-    @entry.desc = @line[regex_cap[:desc], 1].chomp.strip
+    @entry.desc = @line[regex_cap[:desc], 1]
   end
 
   def parse_type
@@ -76,7 +76,7 @@ class ClippingsParser
   end
 
   def parse_time
-    @entry.time = @line[regex_cap[:time], 1].chomp.strip
+    @entry.time = @line[regex_cap[:time], 1]
   end
 
   def parse_text
@@ -96,10 +96,10 @@ class ClippingsParser
 
   def regex_cap
     { title_author: /^(.*) \((.*)\)\r?\n$/,
-      desc: /^- (.*)$/,
+      desc: /^-\s+([^\r]*)\s*\r?\n$/,
       loc: /#{Regexp.quote(@config["loc"])} ([^\s]+)/,
       loc_start: /#{Regexp.quote(@config["loc"])} (\d+)(-\d+)?/,
       page: /#{Regexp.quote(@config["page"])} ([^\s]+)/,
-      time: /#{Regexp.quote(@config["time"])} (.*)$/ }
+      time: /#{Regexp.quote(@config["time"])} ([^\r]*)\r?\n$/ }
   end
 end

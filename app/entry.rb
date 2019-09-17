@@ -30,6 +30,10 @@ class Entry
     @loc_start = loc_start.to_i
   end
 
+  def desc_parsed?
+    @loc_start != 0
+  end
+
   # Override this method to use a SortedSet.
   def <=>(other)
     loc_start <=> other.loc_start

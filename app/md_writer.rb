@@ -83,6 +83,8 @@ class MdWriter
   end
 
   def entry_info(entry)
+    return entry.desc unless entry.desc_parsed?
+
     case entry.type
     when Entry::TYPE[:bookmark]
       "[#{entry.time}]"
