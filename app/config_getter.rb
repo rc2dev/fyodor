@@ -18,7 +18,7 @@ class ConfigGetter
 
   def self.config
     path = find_path
-    puts "Using config at #{path}" unless path.nil?
+    puts "Using config at #{path}\n\n" unless path.nil?
 
     user_config = path.nil? ? {} : TOML.load_file(path)
     CONFIG_DEFAULT.deep_merge(user_config)

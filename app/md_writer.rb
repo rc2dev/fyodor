@@ -1,18 +1,5 @@
 class MdWriter
 
-  PLURAL = { Entry::TYPE[:highlight] => "highlights",
-             Entry::TYPE[:note] => "notes",
-             Entry::TYPE[:bookmark] => "bookmarks",
-             Entry::TYPE[:clip] => "clips",
-             Entry::TYPE[:na] => "unrecognized" }
-
-  SINGULAR = { Entry::TYPE[:highlight] => "highlight",
-               Entry::TYPE[:note] => "note",
-               Entry::TYPE[:bookmark] => "bookmark",
-               Entry::TYPE[:clip] => "clip",
-               Entry::TYPE[:na] => "unrecognized" }
-
-
   def initialize(book, path)
     @book = book
     @path = path
@@ -48,7 +35,7 @@ class MdWriter
   end
 
   def pluralize(type, n)
-    n == 1 ? SINGULAR[type] : PLURAL[type]
+    n == 1 ? Util::SINGULAR[type] : Util::PLURAL[type]
   end
 
   def body
@@ -89,7 +76,7 @@ class MdWriter
     when Entry::TYPE[:bookmark]
       "[#{entry.time}]"
     else
-      SINGULAR[entry.type] + " @ " + entry_page(entry) + " [#{entry.time}]"
+      Util::SINGULAR[entry.type] + " @ " + entry_page(entry) + " [#{entry.time}]"
     end
   end
 

@@ -8,6 +8,7 @@ require_relative "hash"
 require_relative "library"
 require_relative "md_writer"
 require_relative "output_writer"
+require_relative "util"
 require "toml"
 require "pathname"
 require "set"
@@ -23,6 +24,8 @@ class App
   def main
     library = Library.new
     ClippingsParser.new(@clippings_path, @config["parser"], library).parse
+    library.print_stats
+
     OutputWriter.new(library, @output_dir, @config["ignored_books"]).write_all
   end
 

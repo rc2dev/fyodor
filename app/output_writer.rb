@@ -7,8 +7,7 @@ class OutputWriter
   end
 
   def write_all
-    puts "#{@library.count} books found."
-    puts "Writing to #{@output_dir}..." if @library.count > 0
+    puts "\nWriting to #{@output_dir}..." if @library.count > 0
 
     @library.each do |book|
       @book = book
