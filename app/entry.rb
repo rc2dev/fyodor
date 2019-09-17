@@ -6,7 +6,7 @@ class Entry
            clip: "clip",
            na: "na" }
 
-  attr_accessor :desc, :type, :loc, :loc_start, :page, :time, :text
+  attr_accessor :type, :text, :desc, :loc, :loc_start, :page, :time
 
   def initialize
     @text = ""
@@ -41,20 +41,20 @@ class Entry
 
   # Override the following methods for deduplication.
   def ==(other)
-    return false if type != other.type
+    return false if type != other.type || text != other.text
 
-    if type == TYPE[:highlight] || type == TYPE[:clip]
-      text == other.text
+    if desc_parsed? && other.desc_parsed?
+      loc == other.loc
     else
-      text == other.text && desc == other.desc
+      desc == other.desc
     end
   end
 
   alias eql? ==
 
   def hash
-    if type == TYPE[:highlight] || type == TYPE[:clip]
-      type.hash ^ text.hash
+    if desc_parsed?
+      type.hash ^ text.hash ^ loc.hash
     else
       type.hash ^ text.hash ^ desc.hash
     end

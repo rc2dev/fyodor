@@ -37,7 +37,7 @@ class ClippingsParser
     when 1
       parse_title_author
     when 2
-      parse_desc
+      get_desc
       parse_type
       parse_loc
       parse_page
@@ -52,7 +52,7 @@ class ClippingsParser
     @title = @line.chomp.strip if @title.nil?
   end
 
-  def parse_desc
+  def get_desc
     @entry.desc = @line[regex_cap[:desc], 1]
   end
 
