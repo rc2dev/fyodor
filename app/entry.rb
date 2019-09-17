@@ -13,7 +13,11 @@ class Entry
   end
 
   def empty?
-    @text.strip == "" unless @type == TYPE[:bookmark] || @type == TYPE[:na]
+    if @type == TYPE[:bookmark] || @type == TYPE[:na]
+      @desc.strip == ""
+    else
+      @text.strip == ""
+    end
   end
 
   def type=(type)
