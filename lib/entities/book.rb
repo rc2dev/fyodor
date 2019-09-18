@@ -12,7 +12,7 @@ class Book
   end
 
   def <<(entry)
-    entry.empty? || @entries << entry
+    @entries << entry unless entry.empty?
   end
 
   def basename

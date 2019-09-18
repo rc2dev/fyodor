@@ -53,7 +53,7 @@ class MdWriter
     output += "## #{title}\n\n" unless title.nil?
     entries.each do |entry|
       output += "#{entry_text(entry)}\n\n"
-      output += "<p style=\"text-align: right;\"><sup>#{entry_info(entry)}</sup></p>\n\n"
+      output += "<p style=\"text-align: right;\"><sup>#{entry_desc(entry)}</sup></p>\n\n"
     end
     output
   end
@@ -63,13 +63,14 @@ class MdWriter
     when Entry::TYPE[:bookmark]
       "* #{entry_page(entry)}"
     when Entry::TYPE[:note]
-      "> _#{entry.text}_"
+      # We need no white space between the text and _
+      "> _#{entry.text.strip}_"
     else
-      "> #{entry.text}"
+      "> #{entry.text.strip}"
     end
   end
 
-  def entry_info(entry)
+  def entry_desc(entry)
     return entry.desc unless entry.desc_parsed?
 
     case entry.type
