@@ -8,7 +8,8 @@ class ClippingsEntryParser
   end
 
   def parse
-    raise "Entry must have four lines!" if @lines.count != 5
+    raise "Entry must have five lines!" unless @lines.count == 5
+    raise "Entry is badly formatted. 3rd line should be empty." unless @lines[2].strip.empty?
 
     title, author = title_author
     @entry.text = text
