@@ -1,6 +1,7 @@
 class ClippingsParser
 
-  REGEX_ID_SEPARATOR = /^==========\r?\n$/
+  SEPARATOR = /^==========\r?\n$/
+  ENTRY_LEN = 5
 
   def initialize(clippings_path, parser_config, library)
     @path = clippings_path
@@ -9,25 +10,27 @@ class ClippingsParser
   end
 
   def parse
-    entry_lines = []
+    entry = []
     File.open(@path).each do |line|
-      if end_entry?(line)
-        parse_entry(entry_lines)
-        entry_lines = []
-      else
-        entry_lines << line
+      entry << line
+      if end_entry?(entry)
+        parse_entry(entry)
+        entry = []
       end
     end
+    raise "MyClippings is badly formatted" if entry.count > 0
   end
 
 
   private
 
-  def end_entry?(line)
-    line =~ REGEX_ID_SEPARATOR
+  def end_entry?(entry)
+    return false if entry.count < ENTRY_LEN
+    return true if entry.count == ENTRY_LEN && entry.last =~ SEPARATOR
+    raise "MyClippings is badly formatted"
   end
 
-  def parse_entry(entry_lines)
-    ClippingsEntryParser.new(entry_lines, @config, @library).parse
+  def parse_entry(entry)
+    ClippingsEntryParser.new(entry, @config, @library).parse
   end
 end
