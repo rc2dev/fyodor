@@ -1,3 +1,6 @@
+# fyodor sample config file
+
+# Set the translations you get on your clippings file
 [parser]
 highlight = "Your Highlight"
 note = "Your Note"
@@ -7,10 +10,11 @@ loc = "Location"
 page = "page"
 time = "Added on"
 
-[[ignored_books]]
+# Define books not to be saved (or remove this)
+[[output.ignored]]
 title = "Crime and Punishment"
 author = "Fyodor Dostoyevsky"
 
-[[ignored_books]]
+[[output.ignored]]
 title = "Just for Fun"
 author = "Linus Torvalds"

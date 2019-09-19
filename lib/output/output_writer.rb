@@ -1,9 +1,9 @@
 class OutputWriter
 
-  def initialize(library, output_dir, ignored_books)
+  def initialize(library, output_dir, output_config)
     @library = library
     @output_dir = output_dir
-    @ignored_books = ignored_books
+    @ignored = output_config["ignored"]
   end
 
   def write_all
@@ -22,10 +22,10 @@ class OutputWriter
   private
 
   def ignore?(book)
-    if @ignored_books.nil?
+    if @ignored.nil?
       false
     else
-      ! @ignored_books.find { |ignored| ignored["title"] == book.title && ignored["author"] == book.author }.nil?
+      ! @ignored.find { |ignored| ignored["title"] == book.title && ignored["author"] == book.author }.nil?
     end
   end
 

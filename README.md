@@ -41,7 +41,7 @@ If your Kindle is not in English, you should configure the application so it kno
 
 Note that basic parsing should still work without configuration, but you won't take advantage of many features, resulting in a dirtier output.
 
-Also in the configuration file, you can ask the program not to save some books, setting them in `ignored_books`.
+Also in the configuration file, you can ask the program not to save some books, setting them in `[[output.ignored]]`.
 
 To configure the application, copy the sample config and edit it. It can be placed on the root of this directory as `config.toml` or at `~/.config/fyodor.toml`.
 

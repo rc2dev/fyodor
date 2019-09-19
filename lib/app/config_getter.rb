@@ -13,6 +13,9 @@ class ConfigGetter
       "loc" => "Location",
       "page" => "page",
       "time" => "Added on"
+    },
+    "output" => {
+      "ignored" => {}
     }
   }
 

@@ -9,7 +9,7 @@ class Main
     @library = ClippingsParser.new(@clippings_path, @config["parser"]).library
     print_stats
 
-    OutputWriter.new(@library, @output_dir, @config["ignored_books"]).write_all
+    OutputWriter.new(@library, @output_dir, @config["output"]).write_all
   end
 
 
