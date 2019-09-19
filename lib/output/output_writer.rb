@@ -7,7 +7,7 @@ class OutputWriter
   end
 
   def write_all
-    puts "\nWriting to #{@output_dir}..." if @library.count > 0
+    puts "\nWriting to #{@output_dir}..." unless @library.empty?
 
     @library.each do |book|
       if ignore?(book)

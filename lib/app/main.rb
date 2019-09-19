@@ -6,8 +6,7 @@ class Main
   end
 
   def main
-    @library = Library.new
-    ClippingsParser.new(@clippings_path, @config["parser"], @library).parse
+    @library = ClippingsParser.new(@clippings_path, @config["parser"]).library
     print_stats
 
     OutputWriter.new(@library, @output_dir, @config["ignored_books"]).write_all
@@ -35,7 +34,7 @@ class Main
   end
 
   def print_stats
-    puts "=> #{@library.count} books found"
+    puts "=> #{@library.size} books found"
     ct = @library.count_types
     ct.each { |type, n| puts "#{Util::PLURAL[type].capitalize.rjust(12)}: #{n}" }
     puts "-----------------"

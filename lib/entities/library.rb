@@ -1,5 +1,10 @@
+require "forwardable"
+
 class Library
+  extend Forwardable
   include Enumerable
+
+  def_delegators :@books, :empty?, :size
 
   def initialize
     @books = []

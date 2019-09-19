@@ -6,8 +6,20 @@ class Entry
            clip: "clip",
            na: "na" }
 
-  attr_accessor :text, :desc, :type, :loc, :loc_start, :page, :time
+  attr_reader :text, :desc, :type, :loc, :loc_start, :page, :time
 
+  def initialize(attrs)
+    @text = attrs[:text]
+    @desc = attrs[:desc]
+    @type = attrs[:type]
+    @loc = attrs[:loc]
+    # This is our comparable, we need it as a number.
+    @loc_start = attrs[:loc_start].to_i
+    @page = attrs[:page]
+    @time = attrs[:time]
+
+    raise ArgumentError, "Invalid Entry type" unless TYPE.value?(type)
+  end
 
   def empty?
     if @type == TYPE[:bookmark] || @type == TYPE[:na]
@@ -15,16 +27,6 @@ class Entry
     else
       @text.strip == ""
     end
-  end
-
-  def type=(type)
-    raise ArgumentError, "Invalid Entry type" unless TYPE.value?(type)
-    @type = type
-  end
-
-  # This is our comparable; it should be a number.
-  def loc_start=(loc_start)
-    @loc_start = loc_start.to_i
   end
 
   def desc_parsed?

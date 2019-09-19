@@ -40,12 +40,12 @@ class MdWriter
 
   def body
     entries = @book.reject { |entry| entry.type == Entry::TYPE[:bookmark] }
-    entries.count == 0 ? "" : entries_render(entries)
+    entries.size == 0 ? "" : entries_render(entries)
   end
 
   def bookmarks
     bookmarks = @book.select { |entry| entry.type == Entry::TYPE[:bookmark] }
-    bookmarks.count == 0 ? "" : entries_render(bookmarks, "Bookmarks")
+    bookmarks.size == 0 ? "" : entries_render(bookmarks, "Bookmarks")
   end
 
   def entries_render(entries, title=nil)
@@ -63,7 +63,7 @@ class MdWriter
     when Entry::TYPE[:bookmark]
       "* #{entry_page(entry)}"
     when Entry::TYPE[:note]
-      # We need no white space between the text and _
+      # Markdown needs no white space between text and _
       "> _#{entry.text.strip}_"
     else
       "> #{entry.text.strip}"
