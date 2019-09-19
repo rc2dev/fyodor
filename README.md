@@ -6,6 +6,8 @@ Convert your Amazon Kindle highlights, notes and bookmarks into markdown files.
 ## What is it about
 This application parses `My Clippings.txt` from your Kindle and generates a markdown file for each book/document, in the format `#{Author} - #{Title}.md`. This way, your annotations on the books you read are conveniently stored and easily managed.
 
+To read more about the motivation and what problem it tries to solve, [check this blog post](http://rafaelc.org/blog/export-all-your-kindle-highlights-and-notes/).
+
 
 ## Features
 
