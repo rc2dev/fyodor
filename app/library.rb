@@ -2,18 +2,18 @@ class Library
 
   attr_reader :books
   
-  def initialize(entries)
+  def initialize
     @books = []
-
-    entries.group_by(&:book_info).each do |book_info, book_entries|
-      @books << Book.new(book_info, book_entries)
-    end
-
-    finish
   end
 
-
-  private
+  def book(title, author)
+    book = @books.find { |book| book.title == title && book.author == author }
+    if book.nil?
+      book = Book.new(title, author)
+      @books << book
+    end
+    book
+  end
 
   def finish
     @books.each { |book| book.finish }

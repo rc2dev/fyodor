@@ -1,7 +1,9 @@
+require 'pathname'
+
 class ConfigGetter
 
-  CONFIG_PATHS = [File.join(File.dirname(__FILE__), "../config.toml"),
-                  File.expand_path("~/.config/fyodor.toml")]
+  CONFIG_PATHS = [Pathname.new(__FILE__).dirname + "../config.toml",
+                  Pathname.new("~/.config/fyodor.toml").expand_path]
   CONFIG_DEFAULT = {
     "parser" => {
       "note_str" => "Your Note",
@@ -10,17 +12,17 @@ class ConfigGetter
   }
 
   def self.config
-    path = get_path
-    user_config = path.nil? ? {} : TOML::load_file(path)
+    path = find_path
+    puts "Using config at #{path}" unless path.nil?
+
+    user_config = path.nil? ? {} : TOML.load_file(path)
     CONFIG_DEFAULT.deep_merge(user_config)
   end
 
 
   private
 
-  def self.get_path
-    path = CONFIG_PATHS.find { |config| File.exist?(config) }
-    puts "Using config at #{File::realpath(path)}" unless path.nil?
-    path
+  def self.find_path
+    CONFIG_PATHS.find { |path| path.exist? }
   end
 end

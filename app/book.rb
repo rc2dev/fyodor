@@ -1,10 +1,11 @@
 class Book
-  attr_reader :title, :author, :entries, :num_notes, :num_highlights, :num_na
+  attr_accessor :entries
+  attr_reader :title, :author, :num_notes, :num_highlights, :num_na
 
-  def initialize(book_info, book_entries)
-    @title = book_info[:title]
-    @author = book_info[:author]
-    @entries = book_entries
+  def initialize(title, author)
+    @title = title
+    @author = author
+    @entries = []
   end
 
   def finish

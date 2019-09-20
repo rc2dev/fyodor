@@ -16,13 +16,14 @@ class App
 
   def initialize
     get_args
-    @config = ConfigGetter::config
+    @config = ConfigGetter.config
   end
 
   def main
-    parser = ClippingsParser.new(@clippings_path, @config["parser"])
-    entries = parser.parse
-    library = Library.new(entries)
+    library = Library.new
+    parser = ClippingsParser.new(@clippings_path, @config["parser"], library)
+    parser.parse
+    library.finish
     writer = OutputWriter.new(library, @output_dir, @config["ignored_books"])
     writer.write_all
   end

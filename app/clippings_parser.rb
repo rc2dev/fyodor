@@ -1,74 +1,79 @@
 class ClippingsParser
 
-  SEPARATOR = /^==========\r?\n$/
-
-  def initialize(clippings_path, parser_config)
+  def initialize(clippings_path, parser_config, library)
     @path = clippings_path
     @config = parser_config
-    set_type_regexes
+    @library = library
   end
 
-  # Parse MyClippings.txt into an array of entries.
   def parse
-    cur_entry = nil
-    entry_ln = nil
-    entries = []
+    @entry = Entry.new
+    @entry_ln = 1
 
     File.open(@path).each do |line|
-      if $. == 1
-        cur_entry = Entry.new
-        entry_ln = 1
-      elsif line =~ SEPARATOR
-        entries << cur_entry
-        cur_entry = Entry.new
-        entry_ln = 0
-      end
+      @line = line
 
-      case entry_ln
-      when 1
-        cur_entry.book_info = get_book_info(line)
-      when 2
-        cur_entry.desc = get_desc(line)
-        cur_entry.type = get_type(line)
-      when 4..Float::INFINITY
-        cur_entry.text << get_text(line)
-      end
-
-      entry_ln += 1
+      new_entry if end_entry?
+      parse_line
+      @entry_ln +=1
     end
-
-    entries
   end
 
 
   private
 
-  def get_book_info(line)
-    title, author = line.scan(/^(.*) \((.*)\)\r?\n$/).flatten
-    {title: title, author: author}
+  def end_entry?
+    @line =~ regex_id[:separator]
   end
 
-  def get_desc(line)
-    line[/^- (.*)\r?\n$/, 1].strip
+  def new_entry
+    @entry_ln = 0
+    @entry = Entry.new
   end
 
-  def get_type(line)
-    if line =~ @type_regexes[:note]
+  def parse_line
+    case @entry_ln
+    when 1
+      book = @library.book(*parse_title_author)
+      book.entries << @entry
+    when 2
+      @entry.desc = parse_desc
+      @entry.type = parse_type
+    when 4..Float::INFINITY
+      @entry.text << parse_text
+    end
+  end
+
+  def parse_title_author
+    @line.scan(regex_cap[:title_author]).first
+  end
+
+  def parse_desc
+    @line[regex_cap[:desc], 1].chomp.strip
+  end
+
+  def parse_type
+    if @line =~ regex_id[:note]
       Entry::TYPE_NOTE
-    elsif line =~ @type_regexes[:highlight]
+    elsif @line =~ regex_id[:hl]
       Entry::TYPE_HIGHLIGHT
     else
       Entry::TYPE_NA
     end
   end
 
-  def get_text(line)
-    line.chomp.strip
+  def parse_text
+    @line.chomp.strip
   end
 
-  def set_type_regexes
-    @type_regexes = { note: /^- #{Regexp.quote(@config["note_str"])}/,
-                      highlight: /^- #{Regexp.quote(@config["highlight_str"])}/ }
+  def regex_id
+    { separator: /^==========\r?\n$/,
+      note: /^- #{Regexp.quote(@config["note_str"])}/,
+      hl: /^- #{Regexp.quote(@config["highlight_str"])}/ }
   end
 
+  def regex_cap
+    { title_author: /^(.*) \((.*)\)\r?\n$/,
+      desc: /^- (.*)$/ }
+  end
 end
