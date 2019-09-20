@@ -1,4 +1,8 @@
+require_relative "../util/util"
+
 class MdWriter
+
+  include Util
 
   def initialize(book, path)
     @book = book
@@ -35,7 +39,7 @@ class MdWriter
   end
 
   def pluralize(type, n)
-    n == 1 ? Util::SINGULAR[type] : Util::PLURAL[type]
+    n == 1 ? SINGULAR[type] : PLURAL[type]
   end
 
   def body
@@ -77,7 +81,7 @@ class MdWriter
     when Entry::TYPE[:bookmark]
       "[#{entry.time}]"
     else
-      Util::SINGULAR[entry.type] + " @ " + entry_page(entry) + " [#{entry.time}]"
+      SINGULAR[entry.type] + " @ " + entry_page(entry) + " [#{entry.time}]"
     end
   end
 

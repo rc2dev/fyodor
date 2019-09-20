@@ -3,8 +3,7 @@ class Entry
   TYPE = { note: "note",
            highlight: "highlight",
            bookmark: "bookmark",
-           clip: "clip",
-           na: "na" }
+           clip: "clip" }
 
   attr_reader :text, :desc, :type, :loc, :loc_start, :page, :time
 
@@ -18,11 +17,11 @@ class Entry
     @page = attrs[:page]
     @time = attrs[:time]
 
-    raise ArgumentError, "Invalid Entry type" unless TYPE.value?(type)
+    raise ArgumentError, "Invalid Entry type" unless TYPE.value?(@type) || @type.nil?
   end
 
   def empty?
-    if @type == TYPE[:bookmark] || @type == TYPE[:na]
+    if @type == TYPE[:bookmark] || @type.nil?
       @desc.strip == ""
     else
       @text.strip == ""
@@ -30,7 +29,7 @@ class Entry
   end
 
   def desc_parsed?
-    @loc_start != 0
+    @loc_start != 0 && ! @type.nil?
   end
 
   # Override this method to use a SortedSet.
@@ -53,9 +52,9 @@ class Entry
 
   def hash
     if desc_parsed?
-      @type.hash ^ @text.hash ^ @loc.hash
+      @text.hash ^ @type.hash ^ @loc.hash
     else
-      @type.hash ^ @text.hash ^ @desc.hash
+      @text.hash ^ @desc.hash
     end
   end
 end

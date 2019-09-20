@@ -4,6 +4,8 @@ class Library
   extend Forwardable
   include Enumerable
 
+  attr_reader :rejected
+
   def_delegators :@books, :empty?, :size
 
   def initialize
@@ -16,9 +18,9 @@ class Library
   end
 
   def count_types
-    reduce({}) { |acc, book| acc.merge(book.count_types) {|key, val1, val2| val1+val2 } }
+    reduce({}) { |acc, book| acc.merge(book.count_types) { |key, val1, val2| val1 + val2 } }
   end
-  
+
   # Required for Enumerable.
   def each &block
     @books.each { |book| block.call(book) }

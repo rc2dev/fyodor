@@ -3,6 +3,8 @@ class Book
 
   attr_reader :title, :author
 
+  def_delegators :@entries, :size
+  
   def initialize(title, author=nil)
     raise "Book title can't be empty" if title.to_s.empty?
 
@@ -12,6 +14,7 @@ class Book
   end
 
   def <<(entry)
+    raise "Expected an Entry" unless entry.is_a?(Entry)
     @entries << entry unless entry.empty?
   end
 
@@ -21,11 +24,8 @@ class Book
   end
 
   def count_types
-    result = {}
-    Entry::TYPE.each_value do |type|
-      result[type] = count { |entry| entry.type == type }
-    end
-    result
+    list = group_by(&:type).map { |k, v| [k, v.size] }
+    Hash[list]
   end
 
   # Required for Enumerable.

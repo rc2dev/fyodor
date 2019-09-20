@@ -35,8 +35,7 @@ class EntryParser
   end
 
   def type
-    types = Entry::TYPE.values.reject { |v| v == Entry::TYPE[:na] }
-    types.find { |type| @lines[1] =~ regex_type(type) } || Entry::TYPE[:na]
+    Entry::TYPE.values.find { |type| @lines[1] =~ regex_type(type) }
   end
 
   def loc
@@ -84,9 +83,9 @@ class EntryParser
   end
 
   def format_check
-    raise "Entry must have five lines!" unless @lines.size == 5
-    raise "Entry is badly formatted." if @lines[0].strip.empty?
-    raise "Entry is badly formatted." if @lines[1].strip.empty?
-    raise "Entry is badly formatted." unless @lines[2].strip.empty?
+    raise "Entry must have five lines" unless @lines.size == 5
+    raise "Entry is badly formatted" if @lines[0].strip.empty?
+    raise "Entry is badly formatted" if @lines[1].strip.empty?
+    raise "Entry is badly formatted" unless @lines[2].strip.empty?
   end
 end
