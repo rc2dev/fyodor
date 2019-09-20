@@ -2,6 +2,7 @@
 
 require_relative "app/main"
 require_relative "app/config_getter"
+require_relative "app/stats_printer"
 require_relative "entities/book"
 require_relative "entities/entry"
 require_relative "entities/library"

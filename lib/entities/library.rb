@@ -8,17 +8,33 @@ class Library
 
   def_delegators :@books, :empty?, :size
 
+  attr_reader :rejected
+
   def initialize
     @books = []
+    @rejected = {empty: 0, dup: 0}
   end
 
   def add_entry(title, author, entry)
-    return if entry.empty?
-    book(title, author) << entry
+    if entry.empty?
+      @rejected[:empty] += 1
+      return
+    end
+
+    res = book(title, author) << entry
+    @rejected[:dup] +=1 if res.nil?
   end
 
   def count_types
     reduce({}) { |acc, book| acc.merge(book.count_types) { |key, val1, val2| val1 + val2 } }
+  end
+
+  def count_desc_unparsed
+    reduce(0) { |acc, book| acc + book.count_desc_unparsed }
+  end
+
+  def count_entries
+    reduce(0) { |acc, book| acc + book.size }
   end
 
   # Required for Enumerable.

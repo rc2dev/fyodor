@@ -10,9 +10,9 @@ class StatsPrinter
 
   def print
     num_books
-    types
     rejected
-    good_parsing
+    types
+    pretty_output
   end
 
   private
@@ -30,13 +30,24 @@ class StatsPrinter
 
   def rejected
     rejected = @library.rejected
-    puts "Ignored #{rejected[:empty]} empty and #{rejected[:dup]} duplicated entries."
+    puts "=> Ignored #{rejected[:empty]} empty and #{rejected[:dup]} duplicated entries."
   end
 
-  def good_parsing
-    ratio = (@library.count_desc_parsed.to_f / @library.count_entries.to_f) * 100
-    puts "#{ratio.round(1)}% of good parsing."
-    puts "Try fixing your configuration for better output." if ratio < 50
+  def pretty_output
+    bad = @library.count_desc_unparsed
+    percent = (bad.to_f / @library.count_entries.to_f) * 100
+
+    if bad > 0
+      warn <<~EOF
+      We couldn't *improve* the output of #{bad} (#{percent.round(1)}%) entries.
+      Possible causes:
+      - Wrong strings in the config file (most probable).
+      - Your locale has some specificity the app is not aware. Please open an issue.
+      #{"- Your clippings file has more than one locale." if percent != 100}
+      EOF
+    else
+      puts "ALL entries were correctly parsed."
+    end
   end
 
 end

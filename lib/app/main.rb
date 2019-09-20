@@ -7,8 +7,7 @@ class Main
 
   def main
     @library = ClippingsParser.new(@clippings_path, @config["parser"]).library
-    print_stats
-
+    StatsPrinter.new(@library).print
     OutputWriter.new(@library, @output_dir, @config["output"]).write_all
   end
 
@@ -31,14 +30,6 @@ class Main
 
   def get_path(path)
     Pathname.new(path).expand_path.realpath
-  end
-
-  def print_stats
-    puts "=> #{@library.size} books found"
-    ct = @library.count_types
-    ct.each { |type, n| puts "#{Util::PLURAL[type].capitalize.rjust(12)}: #{n}" }
-    puts "-----------------"
-    puts "#{"TOTAL".rjust(12)}: #{ct.sum {|k, v| v}}"
   end
 end
 
