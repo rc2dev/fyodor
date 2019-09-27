@@ -45,12 +45,12 @@ Note that basic parsing should still work without configuration, but you won't t
 
 Also in the configuration file, you can ask the program not to save some books, setting them in `[[output.ignored]]`.
 
-To configure the application, copy the sample config and edit it. It can be placed on the root of this directory as `config.toml` or at `~/.config/fyodor.toml`.
+To configure the application, copy the sample config and edit it. It can be placed on the root of this directory or at `~/.config/fyodor.toml`.
 
 ```
 $ cd fyodor
-$ cp config.toml{.sample,}
-## or cp config.toml.sample ~/.config/fyodor.toml
+$ cp fyodor.toml{.sample,}
+## or cp fyodor.toml.sample ~/.config/fyodor.toml
 ```
 
 

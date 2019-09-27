@@ -2,7 +2,7 @@ require 'pathname'
 
 class ConfigGetter
 
-  CONFIG_PATHS = [Pathname.new(__FILE__).dirname + "../config.toml",
+  CONFIG_PATHS = [Pathname.new(__FILE__).dirname + "../fyodor.toml",
                   Pathname.new("~/.config/fyodor.toml").expand_path]
   CONFIG_DEFAULT = {
     "parser" => {
