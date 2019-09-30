@@ -4,9 +4,10 @@ class MdWriter
 
   include Util
 
-  def initialize(book, path)
+  def initialize(book, path, config)
     @book = book
     @path = path
+    @config = config
   end
 
   def write
@@ -65,12 +66,12 @@ class MdWriter
   def entry_text(entry)
     case entry.type
     when Entry::TYPE[:bookmark]
-      "* #{entry_page(entry)}"
+      "* #{page(entry)}"
     when Entry::TYPE[:note]
-      # Markdown needs no white space between text and _
-      "> _#{entry.text.strip}_"
+
+      "> _#{text(entry)}_"
     else
-      "> #{entry.text.strip}"
+      "> #{text(entry)}"
     end
   end
 
@@ -79,14 +80,27 @@ class MdWriter
 
     case entry.type
     when Entry::TYPE[:bookmark]
-      "[#{entry.time}]"
+      time(entry)
     else
-      SINGULAR[entry.type] + " @ " + entry_page(entry) + " [#{entry.time}]"
+      (type(entry) + " @ " + page(entry) + " " + time(entry)).strip
     end
   end
 
-  def entry_page(entry)
+  def page(entry)
     ((entry.page.nil? ? "" : "page #{entry.page}, ") +
       (entry.loc.nil? ? "" : "loc. #{entry.loc}")).delete_suffix(", ")
+  end
+
+  def time(entry)
+    @config["time"] ? "[#{entry.time}]" : ""
+  end
+
+  def type(entry)
+    SINGULAR[entry.type]
+  end
+
+  def text(entry)
+    # Markdown needs no white space between text and formatters
+    entry.text.strip
   end
 end

@@ -1,9 +1,9 @@
 class OutputWriter
 
-  def initialize(library, output_dir, output_config)
+  def initialize(library, output_dir, config)
     @library = library
     @output_dir = output_dir
-    @ignored = output_config["ignored"]
+    @config = config
   end
 
   def write_all
@@ -13,7 +13,7 @@ class OutputWriter
       if ignore?(book)
         puts "Ignored: #{book.author} - #{book.title}"
       else
-        MdWriter.new(book, path(book)).write
+        MdWriter.new(book, path(book), @config).write
       end
     end
   end
@@ -22,10 +22,10 @@ class OutputWriter
   private
 
   def ignore?(book)
-    if @ignored.nil?
+    if @config["ignored"].nil?
       false
     else
-      ! @ignored.find { |ignored| ignored["title"] == book.title && ignored["author"] == book.author }.nil?
+      ! @config["ignored"].find { |ignored| ignored["title"] == book.title && ignored["author"] == book.author }.nil?
     end
   end
 

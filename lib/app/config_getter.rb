@@ -15,6 +15,7 @@ class ConfigGetter
       "time" => "Added on"
     },
     "output" => {
+      "time" => false,
       "ignored" => {}
     }
   }
