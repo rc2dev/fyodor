@@ -69,16 +69,16 @@ class EntryParser
       /^(.*) \((.*)\)\r?\n$/
     when :loc
       s = Regexp.quote(@config["loc"])
-      /#{s} ([^\s]+)/
+      /#{s} (\S+)/
     when :loc_start
       s = Regexp.quote(@config["loc"])
       /#{s} (\d+)(-\d+)?/
     when :page
       s = Regexp.quote(@config["page"])
-      /#{s} ([^\s]+)/
+      /#{s} (\S+)/
     when :time
       s = Regexp.quote(@config["time"])
-      /#{s} ([^\r]*)\r?\n$/
+      /#{s} (.*)\r?\n$/
     end
   end
 
