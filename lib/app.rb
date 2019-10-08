@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 
-require_relative "app/main"
+require_relative "app/cli"
 require_relative "app/config_getter"
 require_relative "app/stats_printer"
 require_relative "entities/book"
@@ -16,4 +16,4 @@ require "toml"
 require "pathname"
 require "set"
 
-Main.new.main
+CLI.new.main

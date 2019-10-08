@@ -60,17 +60,17 @@ You can also set:
 
 ```
 $ cd fyodor
-$ ./fyodor CLIPPINGS_FILE OUTPUT_DIR
+$ ./fyodor CLIPPINGS_FILE [OUTPUT_DIR]
 ```
 
 Or if you linked it to a directory in your PATH:
 ```
-$ fyodor CLIPPINGS_FILE OUTPUT_DIR
+$ fyodor CLIPPINGS_FILE [OUTPUT_DIR]
 ```
 
 Where:
-* `CLIPPINGS_FILE` is the path for `My Clippings.txt`
-* `OUTPUT_DIR` is the path to the directory for the markdown files to be written
+* `CLIPPINGS_FILE` is the path for `My Clippings.txt`.
+* `OUTPUT_DIR` is the directory to write the markdown files. If none supplied, it will be `fyodor_output` in the current directory.
 
 
 ## LICENSE

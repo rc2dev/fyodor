@@ -1,8 +1,8 @@
 class OutputWriter
-
   def initialize(library, output_dir, config)
     @library = library
     @output_dir = output_dir
+    @output_dir.mkdir unless @output_dir.exist?
     @config = config
   end
 
