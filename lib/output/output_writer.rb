@@ -1,3 +1,5 @@
+require_relative "md_writer"
+
 class OutputWriter
   def initialize(library, output_dir, config)
     @library = library

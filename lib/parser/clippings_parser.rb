@@ -1,5 +1,7 @@
-class ClippingsParser
+require_relative "../entities/library"
+require_relative "entry_parser"
 
+class ClippingsParser
   SEPARATOR = /^==========\r?\n$/
   ENTRY_SIZE = 5
 

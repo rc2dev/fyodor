@@ -1,7 +1,6 @@
 require_relative "../util/util"
 
 class StatsPrinter
-
   include Util
 
   def initialize(library)

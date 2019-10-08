@@ -1,7 +1,6 @@
 require_relative "../entities/entry"
 
 module Util
-
   PLURAL = { Entry::TYPE[:highlight] => "highlights",
              Entry::TYPE[:note] => "notes",
              Entry::TYPE[:bookmark] => "bookmarks",

@@ -1,3 +1,4 @@
+require_relative "book"
 require "forwardable"
 
 class Library

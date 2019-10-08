@@ -59,7 +59,7 @@ You can also set:
 ## Running
 
 ```
-$ cd fyodor
+$ cd fyodor/bin
 $ ./fyodor CLIPPINGS_FILE [OUTPUT_DIR]
 ```
 

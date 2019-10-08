@@ -1,5 +1,4 @@
 class Entry
-
   TYPE = { note: "note",
            highlight: "highlight",
            bookmark: "bookmark",

@@ -1,7 +1,6 @@
 require_relative "../util/util"
 
 class MdWriter
-
   include Util
 
   def initialize(book, path, config)

@@ -1,5 +1,6 @@
-class EntryParser
+require_relative "../entities/entry"
 
+class EntryParser
   def initialize(entry_lines, parser_config)
     @lines = entry_lines
     @config = parser_config

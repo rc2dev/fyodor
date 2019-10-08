@@ -1,0 +1,10 @@
+#!/usr/bin/env ruby
+
+require_relative "../lib/app/cli"
+
+# Supress stack trace
+begin
+  CLI.new.main
+rescue StandardError => e
+  abort(e.message)
+end

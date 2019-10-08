@@ -1,5 +1,10 @@
-class CLI
+require_relative "config_getter"
+require_relative "stats_printer"
+require_relative "../parser/clippings_parser"
+require_relative "../output/output_writer"
+require "pathname"
 
+class CLI
   def initialize
     get_args
     @config = ConfigGetter.config
@@ -20,12 +25,8 @@ class CLI
       exit 1
     end
 
-    begin
-      @clippings_path = get_path(ARGV[0])
-      @output_dir = ARGV[1].nil? ? default_output_dir : get_path(ARGV[1])
-    rescue SystemCallError => e
-      abort(e.message)
-    end
+    @clippings_path = get_path(ARGV[0])
+    @output_dir = ARGV[1].nil? ? default_output_dir : get_path(ARGV[1])
   end
 
   def get_path(path)

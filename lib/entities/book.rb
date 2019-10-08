@@ -1,4 +1,5 @@
 require "forwardable"
+require "set"
 
 class Book
   extend Forwardable

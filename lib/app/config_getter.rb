@@ -1,7 +1,8 @@
-require 'pathname'
+require_relative "../util/hash"
+require "pathname"
+require "toml"
 
 class ConfigGetter
-
   CONFIG_PATHS = [Pathname.new(__FILE__).dirname + "../fyodor.toml",
                   Pathname.new("~/.config/fyodor.toml").expand_path]
   CONFIG_DEFAULT = {
