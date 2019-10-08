@@ -51,9 +51,7 @@ $ cp fyodor.toml{.sample,}
 ## or cp fyodor.toml.sample ~/.config/fyodor.toml
 ```
 
-You can also set:
-* Whether to print each entry time next to them. On `[output]`, set `time` to `true` or `false`.
-* If the program should not save some books. Set them in `[[output.ignored]]`.
+The configuration file also allows you to set whether to print the time of each entry. On `[output]`, set `time` to `true` or `false`.
 
 
 ## Running

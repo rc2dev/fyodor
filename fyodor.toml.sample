@@ -13,12 +13,3 @@ time = "Added on"
 [output]
 # Whether we should print each entry time next to them
 time = false
-
-# Define books not to be saved (or remove this)
-[[output.ignored]]
-title = "Crime and Punishment"
-author = "Fyodor Dostoyevsky"
-
-[[output.ignored]]
-title = "Just for Fun"
-author = "Linus Torvalds"

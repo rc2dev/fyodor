@@ -10,26 +10,11 @@ class OutputWriter
 
   def write_all
     puts "\nWriting to #{@output_dir}..." unless @library.empty?
-
-    @library.each do |book|
-      if ignore?(book)
-        puts "Ignored: #{book.author} - #{book.title}"
-      else
-        MdWriter.new(book, path(book), @config).write
-      end
-    end
+    @library.each { |book| MdWriter.new(book, path(book), @config).write }
   end
 
 
   private
-
-  def ignore?(book)
-    if @config["ignored"].nil?
-      false
-    else
-      ! @config["ignored"].find { |ignored| ignored["title"] == book.title && ignored["author"] == book.author }.nil?
-    end
-  end
 
   def path(book)
     path = @output_dir + "#{book.basename}.md"
