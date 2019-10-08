@@ -22,7 +22,7 @@ class StatsPrinter
 
   def types
     ct = @library.count_types
-    PLURAL.each { |type, label| puts "#{label.capitalize.rjust(12)}: #{ct[type]}" }
+    PLURAL.each { |type, label| puts "#{label.capitalize.rjust(12)}: #{ct[type] || 0}" }
     puts "-------------------"
     puts "#{"TOTAL".rjust(12)}: #{ct.sum {|k, v| v}}\n\n"
   end
@@ -48,5 +48,4 @@ class StatsPrinter
       puts "ALL entries were correctly parsed."
     end
   end
-
 end
