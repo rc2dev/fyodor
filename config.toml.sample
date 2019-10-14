@@ -1,6 +1,8 @@
 [parser]
-highlight_str = "Your Highlight"
-note_str = "Your Note"
+highlight = "Your Highlight"
+note = "Your Note"
+bookmark = "Your Bookmark"
+clip = "Clip This Article"
 
 [[ignored_books]]
 title = "Crime and Punishment"

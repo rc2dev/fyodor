@@ -25,16 +25,11 @@ class Book
   private
 
   def rm_empty_entries
-    @entries.select! { |entry| entry.text.strip != "" }
+    @entries.select! { |entry| ! entry.empty? }
   end
 
   def rm_dup_entries
-    # We shouldn't remove notes with equal text, as they can be desired
-    # Eg: TODO reminders on a document
-    # Duplicate highlights, on the other hand, are probably useless
-    @entries.uniq! do |entry|
-      [entry.text, entry.type != Entry::TYPE_NOTE || entry.desc]
-    end
+    @entries.uniq! { |entry| entry.uniq_info }
   end
 
   def set_counters

@@ -57,8 +57,12 @@ class ClippingsParser
   def parse_type
     if @line =~ regex_id[:note]
       Entry::TYPE_NOTE
-    elsif @line =~ regex_id[:hl]
+    elsif @line =~ regex_id[:highlight]
       Entry::TYPE_HIGHLIGHT
+    elsif @line =~ regex_id[:bookmark]
+      Entry::TYPE_BOOKMARK
+    elsif @line =~ regex_id[:clip]
+      Entry::TYPE_CLIP
     else
       Entry::TYPE_NA
     end
@@ -70,8 +74,10 @@ class ClippingsParser
 
   def regex_id
     { separator: /^==========\r?\n$/,
-      note: /^- #{Regexp.quote(@config["note_str"])}/,
-      hl: /^- #{Regexp.quote(@config["highlight_str"])}/ }
+      note: /^- #{Regexp.quote(@config["note"])}/,
+      highlight: /^- #{Regexp.quote(@config["highlight"])}/,
+      bookmark: /^- #{Regexp.quote(@config["bookmark"])}/,
+      clip: /^- #{Regexp.quote(@config["clip"])}/ }
   end
 
   def regex_cap

@@ -6,8 +6,10 @@ class ConfigGetter
                   Pathname.new("~/.config/fyodor.toml").expand_path]
   CONFIG_DEFAULT = {
     "parser" => {
-      "note_str" => "Your Note",
-      "highlight_str" => "Your Highlight"
+      "highlight" => "Your Highlight",
+      "note" => "Your Note",
+      "bookmark" => "Your Bookmark",
+      "clip" => "Clip This Article"
     }
   }
 

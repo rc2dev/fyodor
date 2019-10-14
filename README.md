@@ -1,10 +1,10 @@
 # Fyodor
 
-Convert your Amazon Kindle highlights and notes into markdown files.
+Convert your Amazon Kindle highlights, notes and bookmarks into markdown files.
 
 
 ## What is it about
-This application parses `My Clippings.txt` from your Kindle and generates a markdown file for each book/document. This way, the highlights and notes for the books you read are conveniently stored and easily managed.
+This application parses `My Clippings.txt` from your Kindle and generates a markdown file for each book/document, in the format `#{Author} - #{Title}.md`. This way, your annotations on the books you read are conveniently stored and easily managed.
 
 Unlike other similar applications, this tries to be locale agnostic, so it should work no matter language you are using.
 
@@ -28,19 +28,17 @@ $ git clone https://github.com/rccavalcanti/fyodor.git
 
 ## Configuration
 
-If your Kindle is not in English, you should change `note_str` and `highlight_str` in the config, to reflect how both are called in your clippings file.
+If your Kindle is not in English, you should inform how the notes, highlights, etc. are called in your clippings file. You do this in the config file, in `parser` section.
 
-To do so, copy the sample config and then edit it:
+You can also ask the program to ignore some books, setting them in `ignored_books` section.
+
+To use any of those features, copy the sample config and edit it. It can be placed on the root of the application directory as `config.toml` or at `~/.config/fyodor.toml`.
 
 ```
 $ cd fyodor
-$ cp config.toml{.sample,}
-## or
-$ cp config.toml.sample ~/.config/fyodor.toml
-## and edit it
+$ cp config.toml{.sample,}  # or cp config.toml.sample ~/.config/fyodor.toml
+## edit it
 ```
-
-Another configurable feature is `ignored_books`. You can list some books to not be saved.
 
 
 ## Running
