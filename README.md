@@ -8,6 +8,8 @@ This application parses `My Clippings.txt` from your Kindle and generates a mark
 
 To read more about the motivation and what problem it tries to solve, [check this blog post](http://rafaelc.org/blog/export-all-your-kindle-highlights-and-notes/).
 
+[For samples of the output, click here.](samples/)
+
 
 ## Features
 
