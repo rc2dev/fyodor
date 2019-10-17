@@ -4,9 +4,11 @@ class Entry
            bookmark: "bookmark",
            clip: "clip" }
 
-  attr_reader :text, :desc, :type, :loc, :loc_start, :page, :time
+  attr_reader :book_title, :book_author, :text, :desc, :type, :loc, :loc_start, :page, :time
 
   def initialize(attrs)
+    @book_title = attrs[:book_title]
+    @book_author = attrs[:book_author]
     @text = attrs[:text]
     @desc = attrs[:desc]
     @type = attrs[:type]

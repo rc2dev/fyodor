@@ -8,22 +8,21 @@ class EntryParser
   end
 
   def entry
-    Entry.new({text: text, desc: desc, type: type, loc: loc,
-      loc_start: loc_start, page: page, time: time})
-  end
-
-  def title
-    title_author[:title]
-  end
-
-  def author
-    title_author[:author]
+    Entry.new({book_title: book[:title],
+               book_author: book[:author],
+               text: text,
+               desc: desc,
+               type: type,
+               loc: loc,
+               loc_start: loc_start,
+               page: page,
+               time: time})
   end
 
 
   private
 
-  def title_author
+  def book
     title, author = @lines[0].scan(regex_cap(:title_author)).first
     # If book has no author, regex fails.
     title = @lines[0] if title.nil?

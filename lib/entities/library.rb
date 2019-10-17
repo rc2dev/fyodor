@@ -5,25 +5,20 @@ class Library
   extend Forwardable
   include Enumerable
 
-  attr_reader :rejected
-
-  def_delegators :@books, :empty?, :size
-
-  attr_reader :rejected
+  def_delegators :@books, :each, :empty?, :size
 
   def initialize
     @books = []
-    @rejected = {empty: 0, dup: 0}
+    @rej_empty = 0
   end
 
-  def add_entry(title, author, entry)
+  def <<(entry)
     if entry.empty?
-      @rejected[:empty] += 1
+      @rej_empty += 1
       return
     end
 
-    res = book(title, author) << entry
-    @rejected[:dup] +=1 if res.nil?
+    book(entry.book_title, entry.book_author) << entry
   end
 
   def count_types
@@ -38,9 +33,8 @@ class Library
     reduce(0) { |acc, book| acc + book.size }
   end
 
-  # Required for Enumerable.
-  def each &block
-    @books.each { |book| block.call(book) }
+  def rejected
+    {empty: @rej_empty, dup: count_rej_dup}
   end
 
 
@@ -53,5 +47,9 @@ class Library
       @books << book
     end
     book
+  end
+
+  def count_rej_dup
+    reduce(0) { |acc, book| acc + book.rej_dup }
   end
 end

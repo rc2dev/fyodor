@@ -1,5 +1,6 @@
 require_relative "config_getter"
 require_relative "stats_printer"
+require_relative "../entities/library"
 require_relative "../parser/clippings_parser"
 require_relative "../output/output_writer"
 require "pathname"
@@ -11,9 +12,10 @@ class CLI
   end
 
   def main
-    @library = ClippingsParser.new(@clippings_path, @config["parser"]).library
-    StatsPrinter.new(@library).print
-    OutputWriter.new(@library, @output_dir, @config["output"]).write_all
+    library = Library.new
+    ClippingsParser.new(@clippings_path, @config["parser"]).parse(library)
+    StatsPrinter.new(library).print
+    OutputWriter.new(library, @output_dir, @config["output"]).write_all
   end
 
 
