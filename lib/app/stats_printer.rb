@@ -1,7 +1,7 @@
-require_relative "../util/util"
+require_relative "../util/strings"
 
 class StatsPrinter
-  include Util
+  include Strings
 
   def initialize(library)
     @library = library

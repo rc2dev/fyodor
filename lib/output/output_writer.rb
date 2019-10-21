@@ -1,4 +1,4 @@
-require_relative "md_writer"
+require_relative "md_generator"
 
 class OutputWriter
   def initialize(library, output_dir, config)
@@ -10,7 +10,10 @@ class OutputWriter
 
   def write_all
     puts "\nWriting to #{@output_dir}..." unless @library.empty?
-    @library.each { |book| MdWriter.new(book, path(book), @config).write }
+    @library.each do |book|
+      content = MdGenerator.new(book, @config).content
+      File.open(path(book), "w") { |f| f.puts(content) }
+    end
   end
 
 

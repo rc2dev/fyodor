@@ -1,20 +1,15 @@
-require_relative "../util/util"
+require_relative "../util/strings"
 
-class MdWriter
-  include Util
+class MdGenerator
+  include Strings
 
-  def initialize(book, path, config)
+  def initialize(book, config)
     @book = book
-    @path = path
     @config = config
   end
 
-  def write
-    File.open(@path, "w") do |f|
-      f.puts(header)
-      f.puts(body)
-      f.puts(bookmarks)
-    end
+  def content
+    header + body + bookmarks
   end
 
 

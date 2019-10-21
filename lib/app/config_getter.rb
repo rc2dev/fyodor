@@ -3,9 +3,9 @@ require "pathname"
 require "toml"
 
 class ConfigGetter
-  CONFIG_PATHS = [Pathname.new(__FILE__).dirname + "../fyodor.toml",
-                  Pathname.new("~/.config/fyodor.toml").expand_path]
-  CONFIG_DEFAULT = {
+  PATHS = [Pathname.new(__FILE__).dirname + "../fyodor.toml",
+           Pathname.new("~/.config/fyodor.toml").expand_path]
+  DEFAULT = {
     "parser" => {
       "highlight" => "Your Highlight",
       "note" => "Your Note",
@@ -30,11 +30,11 @@ class ConfigGetter
   def get_config
     print_path
     user_config = path.nil? ? {} : TOML.load_file(path)
-    CONFIG_DEFAULT.deep_merge(user_config)
+    DEFAULT.deep_merge(user_config)
   end
 
   def path
-    @path ||= CONFIG_PATHS.find { |path| path.exist? }
+    @path ||= PATHS.find { |path| path.exist? }
   end
 
   def print_path
