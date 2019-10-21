@@ -8,7 +8,7 @@ require "pathname"
 class CLI
   def initialize
     get_args
-    @config = ConfigGetter.config
+    @config = ConfigGetter.new.config
   end
 
   def main

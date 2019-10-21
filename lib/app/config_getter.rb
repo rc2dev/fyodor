@@ -20,18 +20,28 @@ class ConfigGetter
     }
   }
 
-  def self.config
-    path = find_path
-    puts "Using config at #{path}\n\n" unless path.nil?
-
-    user_config = path.nil? ? {} : TOML.load_file(path)
-    CONFIG_DEFAULT.deep_merge(user_config)
+  def config
+    @config ||= get_config
   end
 
 
   private
 
-  def self.find_path
-    CONFIG_PATHS.find { |path| path.exist? }
+  def get_config
+    print_path
+    user_config = path.nil? ? {} : TOML.load_file(path)
+    CONFIG_DEFAULT.deep_merge(user_config)
+  end
+
+  def path
+    @path ||= CONFIG_PATHS.find { |path| path.exist? }
+  end
+
+  def print_path
+    if path.nil?
+      puts "No config found: using defaults.\n\n"
+    else
+      puts "Using config at #{path}\n\n"
+    end
   end
 end
