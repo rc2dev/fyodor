@@ -4,7 +4,7 @@ require_relative "../lib/cli"
 
 # Supress stack trace
 begin
-  CLI.new.main
+  Fyodor::CLI.new.main
 rescue StandardError => e
   abort(e.message)
 end
