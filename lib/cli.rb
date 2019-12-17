@@ -1,8 +1,8 @@
 require_relative "config_getter"
 require_relative "stats_printer"
-require_relative "../entities/library"
-require_relative "../parser/clippings_parser"
-require_relative "../output/output_writer"
+require_relative "library"
+require_relative "clippings_parser"
+require_relative "output_writer"
 require "pathname"
 
 class CLI
@@ -39,4 +39,3 @@ class CLI
     Pathname.new(Dir.pwd) + "fyodor_output"
   end
 end
-

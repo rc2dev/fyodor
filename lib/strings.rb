@@ -1,4 +1,4 @@
-require_relative "../entities/entry"
+require_relative "entry"
 
 module Strings
   PLURAL = { Entry::TYPE[:highlight] => "highlights",

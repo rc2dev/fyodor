@@ -1,4 +1,4 @@
-require_relative "../util/hash"
+require_relative "hash"
 require "pathname"
 require "toml"
 

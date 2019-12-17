@@ -1,4 +1,4 @@
-require_relative "../util/strings"
+require_relative "strings"
 
 class StatsPrinter
   include Strings
