@@ -1,4 +1,4 @@
-require_relative "hash"
+require_relative "core_extensions/hash/merging"
 require "pathname"
 require "toml"
 
@@ -29,6 +29,8 @@ module Fyodor
     private
 
     def get_config
+      Hash.include CoreExtensions::Hash::Merging
+
       print_path
       user_config = path.nil? ? {} : TOML.load_file(path)
       DEFAULT.deep_merge(user_config)
