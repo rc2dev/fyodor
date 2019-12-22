@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   s.email        = 'code@rafaelc.org'
   s.files        = Dir.glob("{bin,lib}/**/*") + %w(README.md LICENSE)
   s.executables  = ['fyodor']
-  s.add_dependency 'toml', '~> 0.0.3'
+  s.add_dependency 'toml', '~> 0.1'
   s.homepage     = 'https://github.com/rccavalcanti/fyodor'
   s.metadata     = { "source_code_uri" => "https://github.com/rccavalcanti/fyodor" }
 end
