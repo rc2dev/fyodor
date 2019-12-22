@@ -4,8 +4,6 @@ require "toml"
 
 module Fyodor
   class ConfigGetter
-    PATHS = [Pathname.new(__FILE__).dirname + "../fyodor.toml",
-             Pathname.new("~/.config/fyodor.toml").expand_path]
     DEFAULT = {
       "parser" => {
         "highlight" => "Your Highlight",
@@ -30,14 +28,22 @@ module Fyodor
 
     def get_config
       Hash.include CoreExtensions::Hash::Merging
-
       print_path
+
       user_config = path.nil? ? {} : TOML.load_file(path)
       DEFAULT.deep_merge(user_config)
     end
 
     def path
-      @path ||= PATHS.find { |path| path.exist? }
+      @path ||= paths.find { |path| path.exist? }
+    end
+
+    def paths
+      return @paths unless @paths.nil?
+
+      @paths = []
+      @paths << Pathname.new(ENV["XDG_CONFIG_HOME"]) + "fyodor.toml" unless ENV["XDG_CONFIG_HOME"].nil?
+      @paths << Pathname.new("~/.config/fyodor.toml").expand_path
     end
 
     def print_path
