@@ -1,4 +1,4 @@
-require_relative "core_extensions/hash/merging"
+require "fyodor/core_extensions/hash/merging"
 require "pathname"
 require "toml"
 

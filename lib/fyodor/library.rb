@@ -1,4 +1,4 @@
-require_relative "book"
+require "fyodor/book"
 require "forwardable"
 
 module Fyodor

@@ -1,4 +1,4 @@
-require_relative "md_generator"
+require "fyodor/md_generator"
 
 module Fyodor
   class OutputWriter

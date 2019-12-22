@@ -1,8 +1,8 @@
-require_relative "config_getter"
-require_relative "stats_printer"
-require_relative "library"
-require_relative "clippings_parser"
-require_relative "output_writer"
+require "fyodor/config_getter"
+require "fyodor/stats_printer"
+require "fyodor/library"
+require "fyodor/clippings_parser"
+require "fyodor/output_writer"
 require "pathname"
 
 module Fyodor

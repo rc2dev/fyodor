@@ -1,4 +1,4 @@
-require_relative "strings"
+require "fyodor/strings"
 
 module Fyodor
   class MdGenerator

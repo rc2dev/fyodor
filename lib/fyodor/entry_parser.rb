@@ -1,4 +1,4 @@
-require_relative "entry"
+require "fyodor/entry"
 
 module Fyodor
   class EntryParser
