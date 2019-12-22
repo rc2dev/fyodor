@@ -1,0 +1,21 @@
+PATH
+  remote: .
+  specs:
+    fyodor (0.1.1)
+      toml (~> 0.1)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    parslet (1.8.2)
+    toml (0.2.0)
+      parslet (~> 1.8.0)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  fyodor!
+
+BUNDLED WITH
+   1.17.3
