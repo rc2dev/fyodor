@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name         = 'fyodor'
-  s.version      = '0.1.1'
+  s.version      = '0.2.0'
   s.licenses     = ['GPL-3.0-only']
   s.summary      = 'Kindle clippings parser'
   s.description  = "Parse Kindle clippings into markdown files"
