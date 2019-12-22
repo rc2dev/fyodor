@@ -2,9 +2,14 @@
 
 require "fyodor/cli"
 
-# Supress stack trace
-begin
+# Pass --trace to get the stack trace
+if ARGV.include?("--trace")
+  ARGV.delete("--trace")
   Fyodor::CLI.new.main
-rescue StandardError => e
-  abort(e.message)
+else
+  begin
+    Fyodor::CLI.new.main
+  rescue StandardError => e
+    abort(e.message)
+  end
 end

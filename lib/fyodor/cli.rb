@@ -7,6 +7,8 @@ require "pathname"
 
 module Fyodor
   class CLI
+    USAGE = "Usage: #{File.basename($0)} my_clippings_path [output_dir]"
+
     def initialize
       get_args
       @config = ConfigGetter.new.config
@@ -23,10 +25,7 @@ module Fyodor
     private
 
     def get_args
-      if ARGV.count != 1 && ARGV.count != 2
-        puts "Usage: #{File.basename($0)} my_clippings_path [output_dir]"
-        exit 1
-      end
+      abort(USAGE) if ARGV.count != 1 && ARGV.count != 2
 
       @clippings_path = get_path(ARGV[0])
       @output_dir = ARGV[1].nil? ? default_output_dir : get_path(ARGV[1])
