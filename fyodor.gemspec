@@ -1,6 +1,9 @@
+$:.push File.expand_path("../lib", __FILE__)
+require "fyodor/version"
+
 Gem::Specification.new do |s|
   s.name         = 'fyodor'
-  s.version      = '0.2.0'
+  s.version      = Fyodor::VERSION
   s.licenses     = ['GPL-3.0-only']
   s.summary      = 'Kindle clippings parser'
   s.description  = "Parse Kindle clippings into markdown files"
