@@ -74,8 +74,8 @@ Where:
 - `CLIPPINGS_FILE` is the path for `My Clippings.txt`.
 - `OUTPUT_DIR` is the directory to write the markdown files. If none is supplied, this will be `fyodor_output` under the current directory.
 
-## LICENSE
+## License
 
-Released under [GNU GPL v3](LICENSE).
+Licensed under [GPLv3](LICENSE)
 
-Copyright 2019 Rafael Cavalcanti <hi@rafaelc.org>
+Copyright (C) 2019-2020 [Rafael Cavalcanti](https://rafaelc.org/)
