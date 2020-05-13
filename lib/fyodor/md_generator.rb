@@ -52,13 +52,13 @@ module Fyodor
       output = "---\n\n"
       output += "## #{title}\n\n" unless title.nil?
       entries.each do |entry|
-        output += "#{entry_text(entry)}\n\n"
-        output += "<p style=\"text-align: right;\"><sup>#{entry_desc(entry)}</sup></p>\n\n"
+        output += "#{item_text(entry)}\n\n"
+        output += "<p style=\"text-align: right;\"><sup>#{item_desc(entry)}</sup></p>\n\n"
       end
       output
     end
 
-    def entry_text(entry)
+    def item_text(entry)
       case entry.type
       when Entry::TYPE[:bookmark]
         "* #{page(entry)}"
@@ -69,7 +69,7 @@ module Fyodor
       end
     end
 
-    def entry_desc(entry)
+    def item_desc(entry)
       return entry.desc unless entry.desc_parsed?
 
       case entry.type
