@@ -63,10 +63,9 @@ module Fyodor
       when Entry::TYPE[:bookmark]
         "* #{page(entry)}"
       when Entry::TYPE[:note]
-        # Markdown doesn't like multiline italics.
-        "* <i>#{text(entry)}</i>"
+        "* _Note:_\n#{entry.text.strip}"
       else
-        "* #{text(entry)}"
+        "* #{entry.text.strip}"
       end
     end
 
@@ -92,11 +91,6 @@ module Fyodor
 
     def type(entry)
       SINGULAR[entry.type]
-    end
-
-    def text(entry)
-      # Markdown needs no white space between text and formatters
-      entry.text.strip
     end
   end
 end
