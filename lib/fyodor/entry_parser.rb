@@ -56,7 +56,7 @@ module Fyodor
     end
 
     def text
-      @lines[3].strip
+      @lines[3..-2].join.strip
     end
 
     def regex_type(type)
@@ -84,7 +84,6 @@ module Fyodor
     end
 
     def format_check
-      raise "Entry must have five lines" unless @lines.size == 5
       raise "Entry is badly formatted" if @lines[0].strip.empty?
       raise "Entry is badly formatted" if @lines[1].strip.empty?
       raise "Entry is badly formatted" unless @lines[2].strip.empty?

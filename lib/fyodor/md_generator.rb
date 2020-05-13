@@ -63,10 +63,10 @@ module Fyodor
       when Entry::TYPE[:bookmark]
         "* #{page(entry)}"
       when Entry::TYPE[:note]
-
-        "> _#{text(entry)}_"
+        # Markdown doesn't like multiline italics.
+        "* <i>#{text(entry)}</i>"
       else
-        "> #{text(entry)}"
+        "* #{text(entry)}"
       end
     end
 

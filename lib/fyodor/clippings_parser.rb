@@ -3,7 +3,6 @@ require_relative "entry_parser"
 module Fyodor
   class ClippingsParser
     SEPARATOR = /^==========\r?\n$/
-    ENTRY_SIZE = 5
 
     def initialize(clippings_path, parser_config)
       @path = clippings_path
@@ -25,9 +24,7 @@ module Fyodor
     private
 
     def end_entry?(lines)
-      return false if lines.size < ENTRY_SIZE
-      return true if lines.size == ENTRY_SIZE && lines.last =~ SEPARATOR
-      raise "MyClippings is badly formatted"
+      lines.last =~ SEPARATOR
     end
 
     def parse_entry(lines)
