@@ -31,7 +31,7 @@ module Fyodor
     end
 
     def desc_parsed?
-      @loc_start != 0 && ! @type.nil?
+      ! @type.nil? && (! @loc_start.nil? || ! @page.nil?)
     end
 
     # Override this method to use a SortedSet.
@@ -44,7 +44,7 @@ module Fyodor
       return false if @type != other.type || @text != other.text
 
       if desc_parsed? && other.desc_parsed?
-        @loc == other.loc
+        @loc == other.loc && @page == other.page
       else
         @desc == other.desc
       end
@@ -54,7 +54,7 @@ module Fyodor
 
     def hash
       if desc_parsed?
-        @text.hash ^ @type.hash ^ @loc.hash
+        @text.hash ^ @type.hash ^ @loc.hash ^ @page.hash
       else
         @text.hash ^ @desc.hash
       end
