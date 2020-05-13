@@ -61,7 +61,7 @@ module Fyodor
 
     def regex_type(type)
       s = Regexp.quote(@config[type])
-      /^- #{s}/
+      /^- #{s}/i
     end
 
     def regex_cap(item)
@@ -70,16 +70,16 @@ module Fyodor
         /^(.*) \((.*)\)\r?\n$/
       when :loc
         s = Regexp.quote(@config["loc"])
-        /#{s} (\S+)/
+        /#{s} (\S+)/i
       when :loc_start
         s = Regexp.quote(@config["loc"])
-        /#{s} (\d+)(-\d+)?/
+        /#{s} (\d+)(-\d+)?/i
       when :page
         s = Regexp.quote(@config["page"])
-        /#{s} (\S+)/
+        /#{s} (\S+)/i
       when :time
         s = Regexp.quote(@config["time"])
-        /#{s} (.*)\r?\n$/
+        /#{s} (.*)\r?\n$/i
       end
     end
 
