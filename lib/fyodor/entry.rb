@@ -44,7 +44,7 @@ module Fyodor
     end
 
     def desc_parsed?
-      ! @type.nil? && (! @loc_start.nil? || ! @page_start.nil?)
+      ! @type.nil? && (@loc_start != 0 || @page_start != 0)
     end
 
     # Override this method to use a SortedSet.
