@@ -27,7 +27,9 @@ module Fyodor
     private
 
     def book
-      title, author = @lines[0].scan(regex_cap(:title_author)).first
+      regex = /^(.*) \((.*)\)\r?\n$/
+
+      title, author = @lines[0].scan(regex).first
       # If book has no author, regex fails.
       title = @lines[0] if title.nil?
 
@@ -39,58 +41,51 @@ module Fyodor
     end
 
     def type
-      Entry::TYPE.values.find { |type| @lines[1] =~ regex_type(type) }
+      Entry::TYPE.values.find do |type|
+        keyword = Regexp.quote(@config[type])
+        regex = /^- #{keyword}/i
+
+        @lines[1] =~ regex
+      end
     end
 
     def loc
-      @lines[1][regex_cap(:loc), 1]
+      keyword = Regexp.quote(@config["loc"])
+      regex = /#{keyword} (\S+)/i
+
+      @lines[1][regex, 1]
     end
 
     def loc_start
-      @lines[1][regex_cap(:loc_start), 1].to_i
+      keyword = Regexp.quote(@config["loc"])
+      regex = /#{keyword} (\d+)(-\d+)?/i
+
+      @lines[1][regex, 1].to_i
     end
 
     def page
-      @lines[1][regex_cap(:page), 1]
+      keyword = Regexp.quote(@config["page"])
+      regex = /#{keyword} (\S+)/i
+
+      @lines[1][regex, 1]
     end
 
     def page_start
-      @lines[1][regex_cap(:page_start), 1].to_i
+      keyword = Regexp.quote(@config["page"])
+      regex = /#{keyword} (\d+)(-\d+)?/i
+
+      @lines[1][regex, 1].to_i
     end
 
     def time
-      @lines[1][regex_cap(:time), 1]
+      keyword = Regexp.quote(@config["time"])
+      regex = /#{keyword} (.*)\r?\n$/i
+
+      @lines[1][regex, 1]
     end
 
     def text
       @lines[3..-2].join.strip
-    end
-
-    def regex_type(type)
-      s = Regexp.quote(@config[type])
-      /^- #{s}/i
-    end
-
-    def regex_cap(item)
-      case item
-      when :title_author
-        /^(.*) \((.*)\)\r?\n$/
-      when :loc
-        s = Regexp.quote(@config["loc"])
-        /#{s} (\S+)/i
-      when :loc_start
-        s = Regexp.quote(@config["loc"])
-        /#{s} (\d+)(-\d+)?/i
-      when :page
-        s = Regexp.quote(@config["page"])
-        /#{s} (\S+)/i
-      when :page_start
-        s = Regexp.quote(@config["page"])
-        /#{s} (\d+)(-\d+)?/i
-      when :time
-        s = Regexp.quote(@config["time"])
-        /#{s} (.*)\r?\n$/i
-      end
     end
 
     def format_check
