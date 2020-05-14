@@ -7,7 +7,7 @@ module Fyodor
       clip: "clip"
     }
 
-    attr_reader \
+    ATTRS = [
       :book_title,
       :book_author,
       :text,
@@ -18,19 +18,18 @@ module Fyodor
       :page,
       :page_start,
       :time
+    ]
 
-    def initialize(attrs)
-      @book_title = attrs[:book_title]
-      @book_author = attrs[:book_author]
-      @text = attrs[:text]
-      @desc = attrs[:desc]
-      @type = attrs[:type]
-      @loc = attrs[:loc]
-      @page = attrs[:page]
-      @time = attrs[:time]
-      # These are our comparables, we need them as numbers.
-      @loc_start = attrs[:loc_start].to_i
-      @page_start = attrs[:page_start].to_i
+    attr_reader *ATTRS
+
+    def initialize(args)
+      ATTRS.each do |attr|
+        instance_variable_set("@#{attr}", args[attr])
+      end
+
+      # These are our comparables. Let's make sure they are numbers.
+      @loc_start = @loc_start.to_i
+      @page_start = @page_start.to_i
 
       raise ArgumentError, "Invalid Entry type" unless TYPE.value?(@type) || @type.nil?
     end
