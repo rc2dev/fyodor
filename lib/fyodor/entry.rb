@@ -1,11 +1,23 @@
 module Fyodor
   class Entry
-    TYPE = { note: "note",
-            highlight: "highlight",
-            bookmark: "bookmark",
-            clip: "clip" }
+    TYPE = {
+      note: "note",
+      highlight: "highlight",
+      bookmark: "bookmark",
+      clip: "clip"
+    }
 
-    attr_reader :book_title, :book_author, :text, :desc, :type, :loc, :loc_start, :page, :time
+    attr_reader \
+      :book_title,
+      :book_author,
+      :text,
+      :desc,
+      :type,
+      :loc,
+      :loc_start,
+      :page,
+      :page_start,
+      :time
 
     def initialize(attrs)
       @book_title = attrs[:book_title]
@@ -14,10 +26,11 @@ module Fyodor
       @desc = attrs[:desc]
       @type = attrs[:type]
       @loc = attrs[:loc]
-      # This is our comparable, we need it as a number.
-      @loc_start = attrs[:loc_start].to_i
       @page = attrs[:page]
       @time = attrs[:time]
+      # These are our comparables, we need them as numbers.
+      @loc_start = attrs[:loc_start].to_i
+      @page_start = attrs[:page_start].to_i
 
       raise ArgumentError, "Invalid Entry type" unless TYPE.value?(@type) || @type.nil?
     end
@@ -31,11 +44,13 @@ module Fyodor
     end
 
     def desc_parsed?
-      ! @type.nil? && (! @loc_start.nil? || ! @page.nil?)
+      ! @type.nil? && (! @loc_start.nil? || ! @page_start.nil?)
     end
 
     # Override this method to use a SortedSet.
     def <=>(other)
+      return @page_start <=> other.page_start if @loc_start == 0
+
       @loc_start <=> other.loc_start
     end
 

@@ -9,15 +9,18 @@ module Fyodor
     end
 
     def entry
-      Entry.new({book_title: book[:title],
-                book_author: book[:author],
-                text: text,
-                desc: desc,
-                type: type,
-                loc: loc,
-                loc_start: loc_start,
-                page: page,
-                time: time})
+      Entry.new({
+        book_title: book[:title],
+        book_author: book[:author],
+        text: text,
+        desc: desc,
+        type: type,
+        loc: loc,
+        loc_start: loc_start,
+        page: page,
+        page_start: page_start,
+        time: time
+      })
     end
 
 
@@ -51,6 +54,10 @@ module Fyodor
       @lines[1][regex_cap(:page), 1]
     end
 
+    def page_start
+      @lines[1][regex_cap(:page_start), 1].to_i
+    end
+
     def time
       @lines[1][regex_cap(:time), 1]
     end
@@ -77,6 +84,9 @@ module Fyodor
       when :page
         s = Regexp.quote(@config["page"])
         /#{s} (\S+)/i
+      when :page_start
+        s = Regexp.quote(@config["page"])
+        /#{s} (\d+)(-\d+)?/i
       when :time
         s = Regexp.quote(@config["time"])
         /#{s} (.*)\r?\n$/i

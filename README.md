@@ -14,7 +14,7 @@ To read more about the motivation and what problem it tries to solve, [check thi
 
 - Supports all the type of entries in your clippings file: highlights, notes, clips and bookmarks.
 - Automatic removal of empty or duplicate entries (the clippings file can get a lot of those).
-- Orders your entries by location on each book (the clippings file is ordered by time).
+- Orders your entries by location/page on each book (the clippings file is ordered by time).
 - Easily configurable for your language, allowing you to get all features and beautiful output.
 - This software goes some length to be locale agnostic: basic parsing should work without configuration for any language. It should also work even if your clippings file has multiple locales.
 - Bookmarks are printed together and notes are formatted differently, for better visualization.
