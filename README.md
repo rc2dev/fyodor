@@ -40,11 +40,11 @@ $ gem update fyodor
 
 ## Configuration
 
-Fyodor has an optional configuration file, which is used for the following features.
+Fyodor has an optional configuration file, which is used for the following.
 
 ### Languages
 
-If your Kindle is not in English, you should tell Fyodor how some things are called by your `My Clippings.txt` (e.g. highlights, pages, etc). _Note that basic parsing should still work without configuration, but you won't take advantage of many features, resulting in a dirtier output._
+If your Kindle is not in English, you should tell Fyodor how some things are called by your `My Clippings.txt` (e.g. highlights, pages, etc). _Fyodor should still work without configuration, but you won't take advantage of many features, resulting in a dirtier output._
 
 1. Download the sample config to `~/.config/fyodor.toml` or `$XDG_CONFIG_HOME/fyodor.toml`:
 
