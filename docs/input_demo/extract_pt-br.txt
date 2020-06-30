@@ -1,0 +1,165 @@
+﻿Your P2K Articles (2019-11-01) (P2K)
+- Seu destaque ou posição 77-80 | Adicionado: sábado, 2 de novembro de 2019 14:03:00
+
+So my main advice to anyone preparing to give a talk on stage is to cut out everything from your talk that’s not surprising. (Nobody has ever complained that a talk was too short.) Use this rule in all your public writing. If you already found something surprising in what you’re presenting, then remove everything else. If you haven’t found something surprising about it yet, keep looking until you do.
+==========
+﻿On Writing Well, 30th Anniversary Edition: An Informal Guide to Writing Nonfiction (Zinsser, William)
+- Sua nota ou posição 115 | Adicionado: sábado, 2 de novembro de 2019 20:43:52
+
+This is a note.
+==========
+﻿On Writing Well, 30th Anniversary Edition: An Informal Guide to Writing Nonfiction (Zinsser, William)
+- Seu destaque ou posição 295-297 | Adicionado: sábado, 2 de novembro de 2019 20:47:01
+
+The point is that you have to strip your writing down before you can build it back up. You must know what the essential tools are and what job they were designed to do. Extending the metaphor of carpentry, it’s first necessary to be able to saw wood neatly and to drive nails. Later you can bevel the edges or add elegant finials, if that’s your taste.
+==========
+﻿Your P2K Articles (2019-11-02) (P2K)
+- Seu destaque ou posição 530-532 | Adicionado: sábado, 2 de novembro de 2019 21:20:24
+
+If you are going to invest time in a class, certification, or degree make sure you’ll leave with skills that employers actually want, and don’t pay tons of money for something you could get for less.
+==========
+﻿Your P2K Articles (2019-11-02) (P2K)
+- Seu destaque ou posição 931-932 | Adicionado: sábado, 2 de novembro de 2019 21:22:48
+
+Traits like speed, ambition, independence, bravery, and humor — they’re all relative. Back home I’m considered quiet. Here I’m considered loud.
+==========
+﻿The Pragmatic Programmer: From Journeyman to Master (Andrew Hunt;David Thomas)
+- Seu destaque ou posição 734-734 | Adicionado: sábado, 2 de novembro de 2019 21:36:32
+
+At the coding level, we often need to have the same information represented in different forms.
+==========
+﻿The Pragmatic Programmer: From Journeyman to Master (Andrew Hunt;David Thomas)
+- Seu destaque ou posição 740-742 | Adicionado: sábado, 2 de novembro de 2019 21:37:38
+
+Class definitions can be generated automatically from the online database schema, or from the metadata used to build the schema in the first place. The code extracts in this book are inserted by a preprocessor each time we format the text. The trick is to make the process active: this cannot be a one-time conversion, or we're back in a position of duplicating data.
+==========
+﻿The Pragmatic Programmer: From Journeyman to Master (Andrew Hunt;David Thomas)
+- Seu destaque ou posição 744-746 | Adicionado: sábado, 2 de novembro de 2019 21:38:56
+
+The DRY principle tells us to keep the low-level knowledge in the code, where it belongs, and reserve the comments for other, high-level explanations. Otherwise, we're duplicating knowledge,
+==========
+﻿The Pragmatic Programmer: From Journeyman to Master (Andrew Hunt;David Thomas)
+- Seu destaque ou posição 749-751 | Adicionado: sábado, 2 de novembro de 2019 21:40:40
+
+The documentation and code both contain representations of the same knowledge. And we all know that in the heat of the moment, with deadlines looming and important clients clamoring, we tend to defer the updating of documentation.
+==========
+﻿The Pragmatic Programmer: From Journeyman to Master (Andrew Hunt;David Thomas)
+- Seu destaque ou posição 755-756 | Adicionado: sábado, 2 de novembro de 2019 21:41:44
+
+Many languages impose considerable duplication in the source.
+==========
+﻿The Pragmatic Programmer: From Journeyman to Master (Andrew Hunt;David Thomas)
+- Sua nota ou posição 756 | Adicionado: sábado, 2 de novembro de 2019 21:42:31
+
+Diz que nao ha muito o que fazer. Cita as IDEs no caso de C.
+==========
+﻿The Pragmatic Programmer: From Journeyman to Master (Andrew Hunt;David Thomas)
+- Sua nota ou posição 754 | Adicionado: sábado, 2 de novembro de 2019 21:43:12
+
+Única solução que ele menciona.
+==========
+﻿The Pragmatic Programmer: From Journeyman to Master (Andrew Hunt;David Thomas)
+- Seu destaque ou posição 764-765 | Adicionado: sábado, 2 de novembro de 2019 21:43:53
+
+There is absolutely no point in duplicating a function or class header comment between the two files. Use the header files to document interface issues, and the implementation files to document the nitty-gritty details that users of your code don't need to know.
+==========
+﻿The Pragmatic Programmer: From Journeyman to Master (Andrew Hunt;David Thomas)
+- Seu destaque ou posição 767-767 | Adicionado: sábado, 2 de novembro de 2019 21:45:16
+
+Sometimes, duplication comes about as the result of mistakes in the design.
+==========
+﻿The Pragmatic Programmer: From Journeyman to Master (Andrew Hunt;David Thomas)
+- Sua nota ou posição 767 | Adicionado: sábado, 2 de novembro de 2019 21:45:49
+
+Dá como e exemplo a falta de normalização.
+==========
+﻿The Pragmatic Programmer: From Journeyman to Master (Andrew Hunt;David Thomas)
+- Seu destaque ou posição 779-781 | Adicionado: sábado, 2 de novembro de 2019 21:47:07
+
+Later on in the development process, you may choose to violate the DRY principle for performance reasons. Frequently this occurs when you need to cache data to avoid repeating expensive operations. The trick is to localize the impact. The violation is not exposed to the outside world: only the methods within the class have to worry about keeping things straight.
+==========
+﻿﻿The Pragmatic Programmer: From Journeyman to Master (Andrew Hunt;David Thomas)
+- Seu destaque ou posição 783-784 | Adicionado: sábado, 2 de novembro de 2019 21:50:13
+
+Where possible, always use accessor functions to read and write the attributes of objects.[1] It will make it easier to add functionality, such as caching, in the future.
+==========
+﻿The Pragmatic Programmer: From Journeyman to Master (Andrew Hunt;David Thomas)
+- Sua nota ou posição 780 | Adicionado: sábado, 2 de novembro de 2019 21:51:09
+
+Falando sobre ter start, end e lngth numa classe. Length deveria ser um atributo calculado, mas no futuro vc pode violar o dry e torna-lol um atributo como start e end por questoes de perflrmance (evitar o calculo repetido).
+==========
+﻿The Pragmatic Programmer: From Journeyman to Master (Andrew Hunt;David Thomas)
+- Seu destaque ou posição 785-787 | Adicionado: sábado, 2 de novembro de 2019 21:51:51
+
+The use of accessor functions ties in with Meyer's Uniform Access principle [Mey97b], which states that "All services offered by a module should be available through a uniform notation, which does not betray whether they are implemented through storage or through computation."
+==========
+﻿The Pragmatic Programmer: From Journeyman to Master (Andrew Hunt;David Thomas)
+- Seu destaque ou posição 793-793 | Adicionado: sábado, 2 de novembro de 2019 21:52:53
+
+You may well save some seconds now, but at the potential loss of hours later.
+==========
+﻿The Pragmatic Programmer: From Journeyman to Master (Andrew Hunt;David Thomas)
+- Sua nota ou posição 793 | Adicionado: sábado, 2 de novembro de 2019 21:53:25
+
+Impatient duplication
+==========
+﻿The Pragmatic Programmer: From Journeyman to Master (Andrew Hunt;David Thomas)
+- Seu destaque ou posição 803-805 | Adicionado: sábado, 2 de novembro de 2019 21:54:49
+
+Commonly needed functionality or data that doesn't fall into an obvious area of responsibility can get implemented many times over. We feel that the best way to deal with this is to encourage active and frequent communication between developers. Set up forums to discuss common problems.
+==========
+﻿The Pragmatic Programmer: From Journeyman to Master (Andrew Hunt;David Thomas)
+- Seu destaque ou posição 807-809 | Adicionado: sábado, 2 de novembro de 2019 21:55:57
+
+Appoint a team member as the project librarian, whose job is to facilitate the exchange of knowledge. Have a central place in the source tree where utility routines and scripts can be deposited. And make a point of reading other people's source code and documentation, either informally or during code reviews.
+==========
+﻿The Pragmatic Programmer: From Journeyman to Master (Andrew Hunt;David Thomas)
+- Seu destaque ou posição 812-813 | Adicionado: sábado, 2 de novembro de 2019 21:56:23
+
+What you're trying to do is foster an environment where it's easier to find and reuse existing stuff than to write it yourself. If it isn't easy, people won't do it.
+==========
+﻿Crime and Punishment (AmazonClassics Edition) (Dostoyevsky, Fyodor)
+- Seu destaque na página 467 | posição 6607-6609 | Adicionado: domingo, 3 de novembro de 2019 18:43:35
+
+Sonia, timid by nature, had felt before that day that she could be ill-treated more easily than anyone, and that she could be wronged with impunity. Yet till that moment she had fancied that she might escape misfortune by care, gentleness and submissiveness before everyone.
+==========
+﻿O Processo (Franz Kafka)
+- Seu marcador ou posição 604 | Adicionado: segunda-feira, 11 de novembro de 2019 04:49:31
+
+
+==========
+Your P2K Articles (2019-11-10) (P2K)
+- Seu destaque ou posição 67-67 | Adicionado: segunda-feira, 11 de novembro de 2019 18:58:31
+
+Vamos a ser muy dueños de nuestro silencio y no esclavos de nuestras palabras.
+==========
+Your P2K Articles (2019-11-10) (P2K)
+- Seu destaque ou posição 685-686 | Adicionado: segunda-feira, 11 de novembro de 2019 19:02:47
+
+Though Protestant work ethic-driven Americans have tended to worry about the devil holding sway in idle time, it turns out idle time is crucial for creativity, innovation and breakthrough thinking.
+==========
+Your P2K Articles (2019-11-10) (P2K)
+- Seu destaque ou posição 689-691 | Adicionado: segunda-feira, 11 de novembro de 2019 19:03:31
+
+The default mode network is like a series of airport hubs in different and typically unconnected parts of the brain. And that's why it's so crucial. When the brain flips into idle mode, this network subconsciously puts together stray thoughts, makes seemingly random connections and enables us to see an old problem in an entirely new light.
+==========
+Your P2K Articles (2019-11-10) (P2K)
+- Seu destaque ou posição 697-698 | Adicionado: segunda-feira, 11 de novembro de 2019 19:04:17
+
+"To be most creative, you need this oscillation between deep study with focused attention and daydreaming, which is why you may have your great ideas when you're in the shower," Smart told me.
+==========
+Your P2K Articles (2019-11-10) (P2K)
+- Seu destaque ou posição 699-700 | Adicionado: segunda-feira, 11 de novembro de 2019 19:04:38
+
+Smart himself typically takes long, leisurely walks during the workday and carries a notebook with him to capture any interesting thoughts or ideas that his default mode network may burble to the surface.
+==========
+Your P2K Articles (2019-11-10) (P2K)
+- Seu destaque ou posição 517-520 | Adicionado: segunda-feira, 11 de novembro de 2019 19:59:50
+
+For those of you quick to point out that not making a decision is basically the same as not inviting the person (as they don’t get invited either way) that is true factually but not psychologically. Unmade decisions can be sources of distraction and stress and the more of them hover over us, they more we are burdening ourselves unnecessarily.
+==========
+Book without author
+- Seu destaque ou posição 527-529 | Adicionado: segunda-feira, 11 de novembro de 2019 20:01:05
+
+When dealing with non-urgent decisions, either impose an artificial deadline for making the decision or if you feel unready to do so, decide to defer the decision to a later (specific) date when you will revisit the issue (so it doesn’t hover over you as an outstanding task).
+==========
