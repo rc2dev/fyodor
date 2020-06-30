@@ -31,9 +31,15 @@ module Fyodor
 
       title, author = @lines[0].scan(regex).first
       # If book has no author, regex fails.
-      title = @lines[0] if title.nil?
+      if title.nil?
+        title = @lines[0]
+        author = ""
+      end
 
-      {title: title.strip, author: author.to_s.strip}
+      title = rm_zero_width_chars(title).strip
+      author = rm_zero_width_chars(author).strip
+
+      {title: title, author: author}
     end
 
     def desc
@@ -92,6 +98,10 @@ module Fyodor
       raise "Entry is badly formatted" if @lines[0].strip.empty?
       raise "Entry is badly formatted" if @lines[1].strip.empty?
       raise "Entry is badly formatted" unless @lines[2].strip.empty?
+    end
+
+    def rm_zero_width_chars(str)
+      str.gsub(/[\u200B-\u200D\uFEFF]/, '')
     end
   end
 end
