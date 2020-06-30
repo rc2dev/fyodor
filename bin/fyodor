@@ -1,15 +1,59 @@
 #!/usr/bin/env ruby
 
-require "fyodor/cli"
+require "fyodor"
+require "fyodor/config_getter"
+require "fyodor/stats_printer"
+require "fyodor/version"
+require "optimist"
+require "pathname"
 
-# Pass --trace to get the stack trace
-if ARGV.include?("--trace")
-  ARGV.delete("--trace")
-  Fyodor::CLI.new.main
-else
-  begin
-    Fyodor::CLI.new.main
-  rescue StandardError => e
-    abort(e.message)
+module Fyodor
+  class CLI
+    def main
+      parse_args
+      @config = ConfigGetter.new.config
+
+      if @cli_opts.trace
+        run
+      else
+        begin
+          run
+        rescue StandardError => e
+          abort(e.message)
+        end
+      end
+    end
+
+    private
+
+    def get_path(path)
+      Pathname.new(path).expand_path
+    end
+
+    def default_output_dir
+      Pathname.new(Dir.pwd) + "fyodor_output"
+    end
+
+    def run
+      library = Library.new
+      ClippingsParser.new(@clippings_path, @config["parser"]).parse(library)
+      StatsPrinter.new(library).print
+      OutputWriter.new(library, @output_dir, @config["output"]).write_all
+    end
+
+    def parse_args
+      @cli_opts = Optimist::options do
+        version "Fyodor v#{Fyodor::VERSION}"
+        synopsis "Usage: fyodor [options] my_clippings_path [output_dir]"
+
+        opt :trace, "Show backtrace", :default => false
+      end
+
+      Optimist::die "Wrong number of arguments." if ARGV.count != 1 && ARGV.count != 2
+      @clippings_path = get_path(ARGV[0])
+      @output_dir = ARGV[1].nil? ? default_output_dir : get_path(ARGV[1])
+    end
   end
 end
+
+Fyodor::CLI.new.main
