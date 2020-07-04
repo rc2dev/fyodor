@@ -82,6 +82,12 @@ Where:
 - `CLIPPINGS_FILE` is the path for `My Clippings.txt`.
 - `OUTPUT_DIR` is the directory to write the markdown files. If none is supplied, this will be `fyodor_output` under the current directory.
 
+## Buy me a coffee
+
+If you like Fyodor, you can show your support here:
+
+<a href="https://www.buymeacoffee.com/rafaelc" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" width="200" ></a>
+
 ## License
 
 Licensed under [GPLv3](LICENSE)
