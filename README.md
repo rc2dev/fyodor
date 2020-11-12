@@ -86,7 +86,7 @@ Where:
 
 If you like Fyodor, you can show your support here:
 
-<a href="https://www.buymeacoffee.com/rafaelc" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" width="200" ></a>
+<a href="https://rafaelc.org/coffee" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" width="200" ></a>
 
 ## License
 
