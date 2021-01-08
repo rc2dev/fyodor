@@ -82,6 +82,12 @@ Where:
 - `CLIPPINGS_FILE` is the path for `My Clippings.txt`.
 - `OUTPUT_DIR` is the directory to write the markdown files. If none is supplied, this will be `fyodor_output` under the current directory.
 
+## PSA: HTML to markdown
+
+Did you export your annotations to HTML using the Kindle mobile app?
+
+You can convert it to markdown with [a script I wrote specifically for it](https://rafaelc.org/k/kindle2md).
+
 ## Buy me a coffee
 
 If you like Fyodor, you can show your support here:
