@@ -42,8 +42,8 @@ module Fyodor
       return @paths unless @paths.nil?
 
       @paths = []
-      @paths << Pathname.new(ENV["XDG_CONFIG_HOME"]) + "fyodor.toml" unless ENV["XDG_CONFIG_HOME"].nil?
-      @paths << Pathname.new("~/.config/fyodor.toml").expand_path
+      @paths << Pathname.new(ENV["XDG_CONFIG_HOME"]) + "fyodor/fyodor.toml" unless ENV["XDG_CONFIG_HOME"].nil?
+      @paths << Pathname.new("~/.config/fyodor/fyodor.toml").expand_path
     end
 
     def print_path
