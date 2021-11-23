@@ -14,6 +14,6 @@ Gem::Specification.new do |s|
   s.add_dependency 'toml', '~> 0.1'
   s.add_dependency 'optimist', '~> 3.0'
   s.required_ruby_version = '>= 2.5', '< 3'
-  s.homepage     = 'https://github.com/rccavalcanti/fyodor'
-  s.metadata     = { "source_code_uri" => "https://github.com/rccavalcanti/fyodor" }
+  s.homepage     = 'https://rafaelc.org/fyodor'
+  s.metadata     = { "source_code_uri" => "https://rafaelc.org/fyodor" }
 end

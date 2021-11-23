@@ -56,7 +56,7 @@ If your Kindle is not in English, you should tell Fyodor how some things are cal
 1. Download the sample config to `~/.config/fyodor/fyodor.toml` or `$XDG_CONFIG_HOME/fyodor/fyodor.toml`:
 
 ```sh
-$ curl https://raw.githubusercontent.com/rccavalcanti/fyodor/master/docs/fyodor.toml.sample --create-dirs -o ~/.config/fyodor/fyodor.toml
+$ curl https://raw.githubusercontent.com/rc2dev/fyodor/master/docs/fyodor.toml.sample --create-dirs -o ~/.config/fyodor/fyodor.toml
 ```
 
 2. Open both the configuration and your `My Clippings.txt` in your preferred editor. Change the values in the `[parser]` section to mirror what you get in `My Clippings.txt`.
