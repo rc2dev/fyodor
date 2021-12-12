@@ -105,4 +105,4 @@ If you like Fyodor, you can show your support here:
 
 Licensed under [GPLv3](LICENSE)
 
-Copyright (C) 2019-2020 [Rafael Cavalcanti](https://rafaelc.org/)
+Copyright (C) 2019-2020 [Rafael Cavalcanti](https://rafaelc.org/dev)
