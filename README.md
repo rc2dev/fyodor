@@ -34,7 +34,7 @@ We are limited by the data Kindle makes available through `My Clippings.txt`. Th
 
 Install Ruby and run:
 
-```
+```shell-session
 $ gem install fyodor
 ```
 
@@ -42,7 +42,7 @@ $ gem install fyodor
 
 Run:
 
-```
+```shell-session
 $ gem update fyodor
 ```
 
@@ -56,7 +56,7 @@ If your Kindle is not in English, you should tell Fyodor how some things are cal
 
 1. Download the sample config to `~/.config/fyodor/fyodor.toml` or `$XDG_CONFIG_HOME/fyodor/fyodor.toml`:
 
-```sh
+```shell-session
 $ curl https://raw.githubusercontent.com/rc2dev/fyodor/master/docs/fyodor.toml.sample --create-dirs -o ~/.config/fyodor/fyodor.toml
 ```
 
@@ -64,7 +64,7 @@ $ curl https://raw.githubusercontent.com/rc2dev/fyodor/master/docs/fyodor.toml.s
 
 For example, this is the configuration for Brazilian Portuguese:
 
-```
+```toml
 [parser]
 highlight = "Seu destaque"
 note = "Sua nota"
@@ -98,7 +98,7 @@ extension = "html"
 
 ## Usage
 
-```
+```shell-session
 $ fyodor CLIPPINGS_FILE [OUTPUT_DIR]
 ```
 
