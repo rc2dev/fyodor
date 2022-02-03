@@ -19,6 +19,7 @@ module Fyodor
     def header
       return <<~EOF
       # #{@book.title}
+
       #{"by #{@book.author}" unless @book.author.to_s.empty?}
 
       #{header_counts}
@@ -53,7 +54,7 @@ module Fyodor
       output += "## #{title}\n\n" unless title.nil?
       entries.each do |entry|
         output += "#{item_text(entry)}\n\n"
-        output += "<p style=\"text-align: right;\"><sup>#{item_desc(entry)}</sup></p>\n\n"
+        output += "  #{item_desc(entry)}\n\n"
       end
       output
     end
@@ -61,11 +62,11 @@ module Fyodor
     def item_text(entry)
       case entry.type
       when Entry::TYPE[:bookmark]
-        "* #{page(entry)}"
+        "- #{page(entry)}"
       when Entry::TYPE[:note]
-        "* _Note:_\n#{entry.text.strip}"
+        "- _Note:_\n#{entry.text.strip}"
       else
-        "* #{entry.text.strip}"
+        "- #{entry.text.strip}"
       end
     end
 
