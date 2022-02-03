@@ -5,7 +5,9 @@ module Fyodor
   class OutputGenerator
     include Strings
 
-    DEFAULT_TEMPLATE = %q{<%= "# #{@book.basename}" %>
+    # The use of <% - 1 %> is a workaround for trimming indentation before <%=.
+    DEFAULT_TEMPLATE = %q{<% -%>
+      <%- 1 %><%= "# #{@book.basename}" %>
       <% if regular_entries.size > 0 %>
         <%- 1 %><%= "## Highlights and notes" %>
 
