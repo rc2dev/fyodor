@@ -50,7 +50,7 @@ module Fyodor
       output = ""
       entries.each do |entry|
         output += "- #{item_text(entry)}\n\n"
-        output += "  #{item_desc(entry)}\n\n"
+        output += "  #{item_desc(entry)}\n\n" unless item_desc(entry).empty?
       end
       output
     end
