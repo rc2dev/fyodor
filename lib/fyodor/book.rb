@@ -27,7 +27,7 @@ module Fyodor
 
     def basename
       base = @author.to_s.empty? ? "Author N/A - #{@title}" : "#{@author} - #{@title}"
-      base.strip.gsub(/[?*:|\/"<>]/,"_")
+      base.strip
     end
 
     def count_types

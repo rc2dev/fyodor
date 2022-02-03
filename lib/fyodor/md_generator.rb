@@ -5,7 +5,7 @@ module Fyodor
   class MdGenerator
     include Strings
 
-    DEFAULT_TEMPLATE = %q{<%= "# #{@book.author.to_s.empty? ? 'Author N/A' : @book.author} - " + @book.title %>
+    DEFAULT_TEMPLATE = %q{<%= "# #{@book.basename}" %>
       <% if regular_entries.size > 0 %>
         <%- 1 %><%= "## Highlights and notes" %>
 

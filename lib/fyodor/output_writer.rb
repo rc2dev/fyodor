@@ -21,11 +21,12 @@ module Fyodor
     private
 
     def path(book)
-      path = @output_dir + "#{book.basename}.md"
+      basename = book.basename.gsub(/[?*:|\/"<>]/,"_")
+      path = @output_dir + "#{basename}.md"
 
       i = 2
       while(path.exist?)
-        path = @output_dir + "#{book.basename} - #{i}.md"
+        path = @output_dir + "${basename - #{i}.md"
         i += 1
       end
 
