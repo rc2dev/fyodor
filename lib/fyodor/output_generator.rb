@@ -5,39 +5,18 @@ module Fyodor
   class OutputGenerator
     include Strings
 
-    # The use of <% - 1 %> is a workaround for trimming indentation before <%=.
-    DEFAULT_TEMPLATE = %q{<% -%>
-      <%- 1 %><%= "# #{@book.basename}" %>
-      <% if regular_entries.size > 0 %>
-        <%- 1 %><%= "## Highlights and notes" %>
-
-        <%- 1 %><%= render_entries(regular_entries) %>
-      <% end -%>
-      <% if bookmarks.size > 0 %>
-        <%- 1 %><%= "## Bookmarks" %>
-
-        <%- 1 %><%= render_entries(bookmarks) %>
-      <% end -%>
-    }
-
     def initialize(book, config)
       @book = book
       @config = config
     end
 
     def content
-      ERB.new(template, nil, '-').result(binding)
+      ERB.new(@config["template"], nil, '-').result(binding)
     end
 
 
     private
-
-    def template
-      return DEFAULT_TEMPLATE if @config["template_path"].to_s.empty?
-
-      File.read(@config["template_path"])
-    end
-
+    
     def regular_entries
       @book.reject { |entry| entry.type == Entry::TYPE[:bookmark] }
     end

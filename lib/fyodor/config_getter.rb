@@ -6,6 +6,7 @@ module Fyodor
   class ConfigGetter
     CONFIG_NAME = "fyodor.toml"
     TEMPLATE_NAME = "template.erb"
+    DEFAULT_TEMPLATE_PATH = File.dirname(__FILE__) + "/../../share/template.erb"
 
     DEFAULTS = {
       "parser" => {
@@ -38,9 +39,7 @@ module Fyodor
       user_config = @config_path.nil? ? {} : TOML.load_file(@config_path)
 
       config = DEFAULTS.deep_merge(user_config)
-      @template_path = get_path(TEMPLATE_NAME)
-      config["output"]["template_path"] = @template_path
-      print_template_path
+      config["output"]["template"] = template
 
       config
     end
@@ -70,12 +69,16 @@ module Fyodor
       end
     end
 
-    def print_template_path
-      if @template_path.nil?
+    def template
+      template_path = get_path(TEMPLATE_NAME) || DEFAULT_TEMPLATE_PATH
+
+      if template_path == DEFAULT_TEMPLATE_PATH
         puts "No template found: using default.\n\n"
       else
-        puts "Using template at #{@template_path}.\n\n"
+        puts "Using template at #{template_path}.\n\n"
       end
+
+      File.read(template_path)
     end
   end
 end

@@ -1,0 +1,16 @@
+<%# Fyodor's default template. -%>
+# <%= @book.basename %>
+
+## Highlights and notes
+
+<% if regular_entries.size > 0 -%>
+<%= render_entries(regular_entries) %>
+<% else -%>
+None.
+<% end -%>
+
+<% if bookmarks.size > 0 -%>
+## Bookmarks
+
+<%= render_entries(bookmarks) %>
+<% end -%>

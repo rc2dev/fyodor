@@ -81,12 +81,11 @@ In the configuration file you can also set whether to print the time of each ent
 
 ### Templating
 
-If you want to change the structure of the files output by Fyodor, you can use custom templates.
+You may change the structure of the files output by Fyodor by providing your own template.
 
-It should be a ERB template and placed at `~/.config/fyodor/template.erb` or `$XDG_CONFIG_HOME/fyodor/template.erb`. Fyodor will find and use it automatically.
+Simply place a ERB template at `~/.config/fyodor/template.erb` or `$XDG_CONFIG_HOME/fyodor/template.erb` and Fyodor will use it automatically.
 
-You can find a sample similar to the default template [here](docs/template.erb.sample). You can use any method or attribute available [at this class](lib/fyodor/output_generator.rb).
-
+The default template can be found [here](share/template.erb). You can use any method or attribute available [on this class](lib/fyodor/output_generator.rb).
 
 ### Extension
 
