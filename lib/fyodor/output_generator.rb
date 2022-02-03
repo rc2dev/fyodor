@@ -52,7 +52,7 @@ module Fyodor
         output += "- #{item_text(entry)}\n\n"
         output += "  #{item_desc(entry)}\n\n" unless item_desc(entry).empty?
       end
-      output
+      output.strip
     end
 
     def item_text(entry)
