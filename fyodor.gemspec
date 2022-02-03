@@ -6,7 +6,7 @@ Gem::Specification.new do |s|
   s.version      = Fyodor::VERSION
   s.licenses     = ['GPL-3.0-only']
   s.summary      = 'Kindle clippings parser'
-  s.description  = "Parse Kindle clippings into markdown files"
+  s.description  = "Parse Kindle clippings into markdown (or any format)"
   s.authors      = ["Rafael Cavalcanti"]
   s.email        = 'dev@rafaelc.org'
   s.files        = Dir.glob("{bin,lib,share}/**/*") + %w(README.md LICENSE)
