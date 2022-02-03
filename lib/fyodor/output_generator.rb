@@ -27,7 +27,7 @@ module Fyodor
 
     def render_entries(entries)
       output = ""
-      entries.each do |entry|
+      entries.sort.each do |entry|
         output += "- #{item_text(entry)}\n\n"
         output += "  #{item_desc(entry)}\n\n" unless item_desc(entry).empty?
       end

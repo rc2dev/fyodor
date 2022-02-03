@@ -15,7 +15,7 @@ module Fyodor
 
       @title = title
       @author = author
-      @entries = SortedSet.new
+      @entries = Set.new
       @rej_dup = 0
     end
 

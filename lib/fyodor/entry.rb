@@ -48,20 +48,18 @@ module Fyodor
 
     # Override this method to use a SortedSet.
     def <=>(other)
-      return @page_start <=> other.page_start if @loc_start == 0
+      return (@page_start <=> other.page_start) if @loc_start == 0
 
       @loc_start <=> other.loc_start
     end
 
     # Override the following methods for deduplication.
     def ==(other)
-      return false if @type != other.type || @text != other.text
+      return false if (@type != other.type || @text != other.text)
 
-      if desc_parsed? && other.desc_parsed?
-        @loc == other.loc && @page == other.page
-      else
-        @desc == other.desc
-      end
+      return (@loc == other.loc && @page == other.page) if desc_parsed? && other.desc_parsed?
+
+      @desc == other.desc
     end
 
     alias eql? ==
