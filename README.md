@@ -48,19 +48,19 @@ $ gem update fyodor
 
 ## Configuration
 
-Fyodor has an optional configuration file, which is used for the following.
+Fyodor reads an optional configuration file at `~/.config/fyodor/fyodor.toml` or `$XDG_CONFIG_HOME/fyodor/fyodor.toml`. This section describes the available parameters (none is required).
 
-### Languages
-
-If your Kindle is not in English, you should tell Fyodor how some things are called by your `My Clippings.txt` (e.g. highlights, pages, etc). _Fyodor should still work without configuration, but you won't take advantage of many features, resulting in a dirtier output._
-
-1. Download the sample config to `~/.config/fyodor/fyodor.toml` or `$XDG_CONFIG_HOME/fyodor/fyodor.toml`:
+To download the [sample configuration](docs/fyodor.toml.sample):
 
 ```shell-session
 $ curl https://raw.githubusercontent.com/rc2dev/fyodor/master/docs/fyodor.toml.sample --create-dirs -o ~/.config/fyodor/fyodor.toml
 ```
 
-2. Open both the configuration and your `My Clippings.txt` in your preferred editor. Change the values in the `[parser]` section to mirror what you get in `My Clippings.txt`.
+### Languages
+
+If your Kindle device is not set to English (US), you should tell Fyodor how some things are named on your `My Clippings.txt` (highlights, pages, etc). I went through some length to make Fyodor work regardless of this step. However, if you don't set this correctly, you won't take advantage of many features, resulting in a dirtier output.
+
+Open both `fyodor.toml` and your `My Clippings.txt` in your preferred editor. Change the values in the `[parser]` section to mirror what you get in `My Clippings.txt`.
 
 For example, this is the configuration for Brazilian Portuguese:
 
@@ -77,9 +77,23 @@ time = "Adicionado:"
 
 ### Showing the time
 
-In the configuration file you can also set whether to print the time of each entry. On `[output]`, set `time` to `true` or `false`.
+You can also set whether to print the time of each entry. Under `[output]`, set `time` to `true` or `false`:
 
-### Templating
+```toml
+[output]
+time = true
+```
+
+### Extension
+
+If you want to change the extension of the output files (typically after changing the template), set `extension` under `[output]`. For example, to change it to HTML:
+
+```toml
+[output]
+extension = "html"
+```
+
+## Templating
 
 You may change the structure of the files output by Fyodor by providing your own template in any format you wish.
 
@@ -87,14 +101,6 @@ To do that, place a ERB template at `~/.config/fyodor/template.erb` or `$XDG_CON
 
 The default template can be found [here](share/template.erb). You can use any method or attribute available [on this class](lib/fyodor/output_generator.rb).
 
-### Extension
-
-If you want to change the extension of the output files (typically after changing the template), set `extension` on `fyodor.toml`. For example, to change it to HTML:
-
-```toml
-[output]
-extension = "html"
-```
 
 ## Usage
 
