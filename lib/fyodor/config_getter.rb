@@ -4,8 +4,6 @@ require "toml"
 
 module Fyodor
   class ConfigGetter
-    CONFIG_NAME = "fyodor.toml"
-    TEMPLATE_NAME = "template.erb"
     DEFAULT_TEMPLATE_PATH = File.dirname(__FILE__) + "/../../share/template.erb"
 
     DEFAULTS = {
@@ -34,51 +32,41 @@ module Fyodor
     def get_config
       Hash.include CoreExtensions::Hash::Merging
 
-      @config_path = get_path(CONFIG_NAME)
-      print_config_path
-      user_config = @config_path.nil? ? {} : TOML.load_file(@config_path)
-
       config = DEFAULTS.deep_merge(user_config)
       config["output"]["template"] = template
-
       config
     end
 
-    def get_path(name)
-      possible_dirs.each do |d|
-        path = d + name
-        return path if path.exist?
-      end
-
-      return nil
+    def config_dir
+      @config_dir ||= Pathname.new(ENV["XDG_CONFIG_HOME"] || "~/.config").expand_path + "fyodor"
     end
 
-    def possible_dirs
-      return @possible_dirs unless @possible_dirs.nil?
-
-      @possible_dirs = []
-      @possible_dirs << Pathname.new(ENV["XDG_CONFIG_HOME"]) + "fyodor" unless ENV["XDG_CONFIG_HOME"].nil?
-      @possible_dirs << Pathname.new("~/.config/fyodor").expand_path
+    def user_config_path
+      config_dir + "fyodor.toml"
     end
 
-    def print_config_path
-      if @config_path.nil?
-        puts "No config found: using defaults.\n"
-      else
-        puts "Using config at #{@config_path}.\n"
+    def user_template_path
+      config_dir + "template.erb"
+    end
+
+    def user_config
+      if user_config_path.exist?
+        puts "Using config at #{user_config_path}.\n"
+        return TOML.load_file(user_config_path)
       end
+
+      puts "No config found: using defaults.\n"
+      {}
     end
 
     def template
-      template_path = get_path(TEMPLATE_NAME) || DEFAULT_TEMPLATE_PATH
-
-      if template_path == DEFAULT_TEMPLATE_PATH
-        puts "No template found: using default.\n\n"
-      else
-        puts "Using template at #{template_path}.\n\n"
+      if user_template_path.exist?
+        puts "Using custom template at #{user_template_path}.\n\n"
+        return File.read(user_template_path)
       end
 
-      File.read(template_path)
+      puts "No custom template found: using default.\n\n"
+      File.read(DEFAULT_TEMPLATE_PATH)
     end
   end
 end
