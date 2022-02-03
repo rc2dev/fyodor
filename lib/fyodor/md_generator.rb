@@ -1,8 +1,22 @@
 require "fyodor/strings"
+require "erb"
 
 module Fyodor
   class MdGenerator
     include Strings
+
+    DEFAULT_TEMPLATE = %q{<%= "# #{@book.author.to_s.empty? ? 'Author N/A' : @book.author} - " + @book.title %>
+      <% if regular_entries.size > 0 %>
+        <%- 1 %><%= "## Highlights and notes" %>
+
+        <%- 1 %><%= render_entries(regular_entries) %>
+      <% end -%>
+      <% if bookmarks.size > 0 %>
+        <%- 1 %><%= "## Bookmarks" %>
+
+        <%- 1 %><%= render_entries(bookmarks) %>
+      <% end -%>
+    }
 
     def initialize(book, config)
       @book = book
@@ -10,50 +24,24 @@ module Fyodor
     end
 
     def content
-      header + body + bookmarks
+      ERB.new(DEFAULT_TEMPLATE, nil, '-').result(binding)
     end
 
 
     private
 
-    def header
-      return <<~EOF
-      # #{@book.title}
-
-      #{"by #{@book.author}" unless @book.author.to_s.empty?}
-
-      #{header_counts}
-
-      EOF
-    end
-
-    def header_counts
-      output = ""
-      @book.count_types.each do |type, n|
-        output += "#{n} #{pluralize(type, n)}, " if n > 0
-      end
-      output.delete_suffix(", ")
-    end
-
-    def pluralize(type, n)
-      n == 1 ? SINGULAR[type] : PLURAL[type]
-    end
-
-    def body
-      entries = @book.reject { |entry| entry.type == Entry::TYPE[:bookmark] }
-      entries.size == 0 ? "" : entries_render(entries)
+    def regular_entries
+      @book.reject { |entry| entry.type == Entry::TYPE[:bookmark] }
     end
 
     def bookmarks
-      bookmarks = @book.select { |entry| entry.type == Entry::TYPE[:bookmark] }
-      bookmarks.size == 0 ? "" : entries_render(bookmarks, "Bookmarks")
+      @book.select { |entry| entry.type == Entry::TYPE[:bookmark] }
     end
 
-    def entries_render(entries, title=nil)
-      output = "---\n\n"
-      output += "## #{title}\n\n" unless title.nil?
+    def render_entries(entries)
+      output = ""
       entries.each do |entry|
-        output += "#{item_text(entry)}\n\n"
+        output += "- #{item_text(entry)}\n\n"
         output += "  #{item_desc(entry)}\n\n"
       end
       output
@@ -62,11 +50,11 @@ module Fyodor
     def item_text(entry)
       case entry.type
       when Entry::TYPE[:bookmark]
-        "- #{page(entry)}"
+        "#{page(entry)}"
       when Entry::TYPE[:note]
-        "- _Note:_\n#{entry.text.strip}"
+        "_Note:_ #{entry.text.strip}"
       else
-        "- #{entry.text.strip}"
+        "#{entry.text.strip}"
       end
     end
 
