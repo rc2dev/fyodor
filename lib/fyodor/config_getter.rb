@@ -6,7 +6,7 @@ module Fyodor
   class ConfigGetter
     DEFAULT_TEMPLATE_PATH = File.dirname(__FILE__) + "/../../share/template.erb"
 
-    DEFAULTS = {
+    DEFAULT_CONFIG = {
       "parser" => {
         "highlight" => "Your Highlight",
         "note" => "Your Note",
@@ -23,19 +23,17 @@ module Fyodor
     }
 
     def config
-      @config ||= get_config
+      return @config if defined?(@config)
+
+      Hash.include CoreExtensions::Hash::Merging
+      config = DEFAULT_CONFIG.deep_merge(user_config)
+      config["output"]["template"] = template
+
+      @config = config
     end
 
 
     private
-
-    def get_config
-      Hash.include CoreExtensions::Hash::Merging
-
-      config = DEFAULTS.deep_merge(user_config)
-      config["output"]["template"] = template
-      config
-    end
 
     def config_dir
       @config_dir ||= Pathname.new(ENV["XDG_CONFIG_HOME"] || "~/.config").expand_path + "fyodor"
