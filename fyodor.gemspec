@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
   s.description  = "Parse Kindle clippings into markdown files"
   s.authors      = ["Rafael Cavalcanti"]
   s.email        = 'dev@rafaelc.org'
-  s.files        = Dir.glob("{bin,lib}/**/*") + %w(README.md LICENSE)
+  s.files        = Dir.glob("{bin,lib,share}/**/*") + %w(README.md LICENSE)
   s.executables  = ['fyodor']
   s.add_dependency 'toml', '~> 0.1'
   s.add_dependency 'optimist', '~> 3.0'
