@@ -78,6 +78,24 @@ time = "Adicionado:"
 
 In the configuration file you can also set whether to print the time of each entry. On `[output]`, set `time` to `true` or `false`.
 
+### Templating
+
+If you want to change the structure of the files output by Fyodor, you can use custom templates.
+
+It should be a ERB template and placed at `~/.config/fyodor/template.erb` or `$XDG_CONFIG_HOME/fyodor/template.erb`. Fyodor will find and use it automatically.
+
+You can find a sample close to the default [here](docs/template.erb.sample). You can use any method or attribute available [at this class](lib/fyodor/output_generator.rb).
+
+
+### Extension
+
+If you want to change the extension of the output files - typically after changing the template -, set `extension` on fyodor.toml. For example, to change it to HTML:
+
+```toml
+[output]
+extension = "html"
+```
+
 ## Usage
 
 ```
@@ -105,4 +123,4 @@ If you like Fyodor, you can show your support here:
 
 Licensed under [GPLv3](LICENSE)
 
-Copyright (C) 2019-2020 [Rafael Cavalcanti](https://rafaelc.org/dev)
+Copyright (C) 2019-2022 [Rafael Cavalcanti](https://rafaelc.org/dev)
