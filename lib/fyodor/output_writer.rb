@@ -27,7 +27,7 @@ module Fyodor
 
       i = 2
       while(path.exist?)
-        path = @output_dir + "${basename - #{i}.#{extension}"
+        path = @output_dir + "#{basename} - #{i}.#{extension}"
         i += 1
       end
 
