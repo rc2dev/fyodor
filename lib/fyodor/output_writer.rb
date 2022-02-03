@@ -1,4 +1,4 @@
-require "fyodor/md_generator"
+require "fyodor/output_generator"
 
 module Fyodor
   class OutputWriter
@@ -12,7 +12,7 @@ module Fyodor
     def write_all
       puts "\nWriting to #{@output_dir}..." unless @library.empty?
       @library.each do |book|
-        content = MdGenerator.new(book, @config).content
+        content = OutputGenerator.new(book, @config).content
         File.open(path(book), "w") { |f| f.puts(content) }
       end
     end
@@ -22,11 +22,12 @@ module Fyodor
 
     def path(book)
       basename = book.basename.gsub(/[?*:|\/"<>]/,"_")
-      path = @output_dir + "#{basename}.md"
+      extension = @config["extension"]
+      path = @output_dir + "#{basename}.#{extension}"
 
       i = 2
       while(path.exist?)
-        path = @output_dir + "${basename - #{i}.md"
+        path = @output_dir + "${basename - #{i}.#{extension}"
         i += 1
       end
 

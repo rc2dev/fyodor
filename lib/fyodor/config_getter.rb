@@ -4,7 +4,10 @@ require "toml"
 
 module Fyodor
   class ConfigGetter
-    DEFAULT = {
+    CONFIG_NAME = "fyodor.toml"
+    TEMPLATE_NAME = "template.erb"
+
+    DEFAULTS = {
       "parser" => {
         "highlight" => "Your Highlight",
         "note" => "Your Note",
@@ -15,7 +18,8 @@ module Fyodor
         "time" => "Added on"
       },
       "output" => {
-        "time" => false
+        "time" => false,
+        "extension" => "md"
       }
     }
 
@@ -28,29 +32,49 @@ module Fyodor
 
     def get_config
       Hash.include CoreExtensions::Hash::Merging
-      print_path
 
-      user_config = path.nil? ? {} : TOML.load_file(path)
-      DEFAULT.deep_merge(user_config)
+      @config_path = get_path(CONFIG_NAME)
+      print_config_path
+      user_config = @config_path.nil? ? {} : TOML.load_file(@config_path)
+
+      config = DEFAULTS.deep_merge(user_config)
+      @template_path = get_path(TEMPLATE_NAME)
+      config["output"]["template_path"] = @template_path
+      print_template_path
+
+      config
     end
 
-    def path
-      @path ||= paths.find { |path| path.exist? }
+    def get_path(name)
+      possible_dirs.each do |d|
+        path = d + name
+        return path if path.exist?
+      end
+
+      return nil
     end
 
-    def paths
-      return @paths unless @paths.nil?
+    def possible_dirs
+      return @possible_dirs unless @possible_dirs.nil?
 
-      @paths = []
-      @paths << Pathname.new(ENV["XDG_CONFIG_HOME"]) + "fyodor/fyodor.toml" unless ENV["XDG_CONFIG_HOME"].nil?
-      @paths << Pathname.new("~/.config/fyodor/fyodor.toml").expand_path
+      @possible_dirs = []
+      @possible_dirs << Pathname.new(ENV["XDG_CONFIG_HOME"]) + "fyodor" unless ENV["XDG_CONFIG_HOME"].nil?
+      @possible_dirs << Pathname.new("~/.config/fyodor").expand_path
     end
 
-    def print_path
-      if path.nil?
-        puts "No config found: using defaults.\n\n"
+    def print_config_path
+      if @config_path.nil?
+        puts "No config found: using defaults.\n"
       else
-        puts "Using config at #{path}\n\n"
+        puts "Using config at #{@config_path}.\n"
+      end
+    end
+
+    def print_template_path
+      if @template_path.nil?
+        puts "No template found: using default.\n\n"
+      else
+        puts "Using template at #{@template_path}.\n\n"
       end
     end
   end

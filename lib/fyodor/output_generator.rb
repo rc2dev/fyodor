@@ -2,7 +2,7 @@ require "fyodor/strings"
 require "erb"
 
 module Fyodor
-  class MdGenerator
+  class OutputGenerator
     include Strings
 
     DEFAULT_TEMPLATE = %q{<%= "# #{@book.basename}" %>
@@ -24,11 +24,17 @@ module Fyodor
     end
 
     def content
-      ERB.new(DEFAULT_TEMPLATE, nil, '-').result(binding)
+      ERB.new(template, nil, '-').result(binding)
     end
 
 
     private
+
+    def template
+      return DEFAULT_TEMPLATE if @config["template_path"].to_s.empty?
+
+      File.read(@config["template_path"])
+    end
 
     def regular_entries
       @book.reject { |entry| entry.type == Entry::TYPE[:bookmark] }
