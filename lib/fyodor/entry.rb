@@ -46,7 +46,7 @@ module Fyodor
       ! @type.nil? && (@loc_start != 0 || @page_start != 0)
     end
 
-    # Override this method to use a SortedSet.
+    # Override this method for sorting.
     def <=>(other)
       return (@page_start <=> other.page_start) if @loc_start == 0
 
