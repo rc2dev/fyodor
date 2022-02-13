@@ -11,12 +11,12 @@ module Fyodor
     end
 
     def content
-      ERB.new(@config["template"], nil, '-').result(binding)
+      ERB.new(@config["template"], trim_mode: '-').result(binding)
     end
 
 
     private
-    
+
     def regular_entries
       @book.reject { |entry| entry.type == Entry::TYPE[:bookmark] }
     end
