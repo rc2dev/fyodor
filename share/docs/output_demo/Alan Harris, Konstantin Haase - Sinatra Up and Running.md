@@ -21,5 +21,4 @@
 ## Bookmarks
 
 - page 84, loc. 1150
-
 - page 315, loc. 4445

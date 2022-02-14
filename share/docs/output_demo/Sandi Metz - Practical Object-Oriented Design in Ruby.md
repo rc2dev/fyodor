@@ -10,20 +10,19 @@
 
   highlight @ loc. 274-275
 
-* This book uses Ruby to teach OOD but you do not need to know Ruby to understand the concepts herein.
+- This book uses Ruby to teach OOD but you do not need to know Ruby to understand the concepts herein.
 
   highlight @ loc. 316-316
 
-* every concept in this book can be directly translated to a statically typed OO language.
+- every concept in this book can be directly translated to a statically typed OO language.
 
   highlight @ loc. 319-320
 
-* _Note:_ This is a note.
+- _Note:_ This is a note.
 
   note @ loc. 1827
 
 ## Bookmarks
 
-* loc. 1150
-
-* loc. 4445
+- loc. 1150
+- loc. 4445
