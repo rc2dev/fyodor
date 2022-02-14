@@ -46,7 +46,7 @@ module Fyodor
       return if @library.empty?
 
       puts "\nWriting to #{@output_dir}..."
-      @output_dir.mkdir unless @output_dir.exist?
+      @output_dir.mkpath unless @output_dir.exist?
       @library.each do |book|
         OutputWriter.new(book, @output_dir, @config["output"]).write
       end
