@@ -1,6 +1,6 @@
-# fyodor sample config file
+# Fyodor's default config.
 
-# Set the translations you get on your clippings file
+# Set the translations you get on your clippings file.
 [parser]
 highlight = "Your Highlight"
 note = "Your Note"

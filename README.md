@@ -51,10 +51,17 @@ $ gem update fyodor
 
 Fyodor reads an optional configuration file at `~/.config/fyodor/fyodor.toml` or `$XDG_CONFIG_HOME/fyodor/fyodor.toml`. This section describes the available parameters (none is required).
 
+<<<<<<< HEAD
 To download the [default configuration](share/defaults/fyodor.toml):
 
 ```shell-session
 $ curl https://raw.githubusercontent.com/rc2dev/fyodor/master/share/defaults/fyodor.toml --create-dirs -o ~/.config/fyodor/fyodor.toml
+=======
+To download the [default configuration](share/fyodor.toml):
+
+```shell-session
+$ curl https://raw.githubusercontent.com/rc2dev/fyodor/master/share/fyodor.toml --create-dirs -o ~/.config/fyodor/fyodor.toml
+>>>>>>> 6f76189... Move default config from class constant to share/
 ```
 
 ### Languages

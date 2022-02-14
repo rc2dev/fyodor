@@ -4,28 +4,15 @@ require "toml"
 
 module Fyodor
   class ConfigGetter
+    DEFAULT_CONFIG_PATH = File.dirname(__FILE__) + "/../../share/fyodor.toml"
     DEFAULT_TEMPLATE_PATH = File.dirname(__FILE__) + "/../../share/template.erb"
 
-    DEFAULT_CONFIG = {
-      "parser" => {
-        "highlight" => "Your Highlight",
-        "note" => "Your Note",
-        "bookmark" => "Your Bookmark",
-        "clip" => "Clip This Article",
-        "loc" => "Location",
-        "page" => "page",
-        "time" => "Added on"
-      },
-      "output" => {
-        "filename" => "%{author} - %{title}.md"
-      }
-    }
 
     def config
       return @config if defined?(@config)
 
       Hash.include CoreExtensions::Hash::Merging
-      config = DEFAULT_CONFIG.deep_merge(user_config)
+      config = default_config.deep_merge(user_config)
       config["output"]["template"] = template
 
       @config = config
@@ -54,6 +41,10 @@ module Fyodor
 
       puts "No config found: using defaults.\n"
       {}
+    end
+
+    def default_config
+      @default_config ||= TOML.load_file(DEFAULT_CONFIG_PATH)
     end
 
     def template
