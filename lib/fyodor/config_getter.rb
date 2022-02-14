@@ -17,7 +17,6 @@ module Fyodor
         "time" => "Added on"
       },
       "output" => {
-        "time" => false,
         "extension" => "md"
       }
     }

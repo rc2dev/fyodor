@@ -12,5 +12,3 @@ time = "Added on"
 
 [output]
 extension = "md"
-# Whether we should print each entry time next to them
-time = false

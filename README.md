@@ -75,15 +75,6 @@ page = "página"
 time = "Adicionado:"
 ```
 
-### Showing the time
-
-You can also set whether to print the time of each entry. Under `[output]`, set `time` to `true` or `false`:
-
-```toml
-[output]
-time = true
-```
-
 ### Extension
 
 If you want to change the extension of the output files (typically after changing the template), set `extension` under `[output]`. For example, to change it to HTML:
