@@ -4,8 +4,8 @@ require "toml"
 
 module Fyodor
   class ConfigGetter
-    DEFAULT_CONFIG_PATH = File.dirname(__FILE__) + "/../../share/fyodor.toml"
-    DEFAULT_TEMPLATE_PATH = File.dirname(__FILE__) + "/../../share/template.erb"
+    DEFAULT_CONFIG_PATH = File.dirname(__FILE__) + "/../../share/defaults/fyodor.toml"
+    DEFAULT_TEMPLATE_PATH = File.dirname(__FILE__) + "/../../share/defaults/template.erb"
 
 
     def config
