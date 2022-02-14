@@ -1,17 +1,17 @@
 <%# Fyodor's default template. -%>
-# <%= @book.basename %>
-
+# <%= @book.author.empty? ? SINGULAR[:AUTHOR_NA] : @book.author %> - <%= @book.title %>
 <% if regular_entries.size > 0 -%>
-## Highlights and notes
 
+## Highlights and notes
 <% for entry in regular_entries -%>
+
 - <%= "_Note:_ " if entry.type == Entry::TYPE[:note] %><%= entry.text %>
 
   <%= entry.desc_parsed? ? (SINGULAR[entry.type] + " @ " + place(entry)) : entry.desc %>
-
 <% end -%>
 <% end -%>
 <% if bookmarks.size > 0 -%>
+
 ## Bookmarks
 
 <% for bookmark in bookmarks -%>

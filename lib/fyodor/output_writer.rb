@@ -1,37 +1,48 @@
 require "fyodor/output_generator"
+require "fyodor/strings"
+require "pathname"
 
 module Fyodor
   class OutputWriter
-    def initialize(library, output_dir, config)
-      @library = library
+    include Strings
+
+    def initialize(book, output_dir, config)
+      @book = book
       @output_dir = output_dir
-      @output_dir.mkdir unless @output_dir.exist?
       @config = config
     end
 
-    def write_all
-      puts "\nWriting to #{@output_dir}..." unless @library.empty?
-      @library.each do |book|
-        content = OutputGenerator.new(book, @config).content
-        File.open(path(book), "w") { |f| f.puts(content) }
-      end
+    def write
+      output = OutputGenerator.new(@book, @config).output
+      File.open(path, "w") { |f| f.puts(output) }
     end
 
 
     private
 
-    def path(book)
-      basename = book.basename.gsub(/[?*:|\/"<>]/,"_")
-      extension = @config["extension"]
-      path = @output_dir + "#{basename}.#{extension}"
+    def filename
+      return @filename if defined?(@filename)
+
+      filename = @config["filename"] % {
+        author: @book.author,
+        author_fill: @book.author.empty? ? SINGULAR[:AUTHOR_NA] : @book.author,
+        title: @book.title
+      }
+      filename = filename.gsub(/[?*:|\/"<>]/,"_")
+
+      Pathname.new(filename)
+    end
+
+    def path
+      result = @output_dir + filename
 
       i = 2
-      while(path.exist?)
-        path = @output_dir + "#{basename} - #{i}.#{extension}"
+      while(result.exist?)
+        result = @output_dir + "#{filename.basename} - #{i}#{filename.extname}"
         i += 1
       end
 
-      path
+      result
     end
   end
 end

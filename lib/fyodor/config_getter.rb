@@ -17,7 +17,7 @@ module Fyodor
         "time" => "Added on"
       },
       "output" => {
-        "extension" => "md"
+        "filename" => "%{author} - %{title}.md"
       }
     }
 

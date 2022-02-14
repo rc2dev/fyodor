@@ -5,12 +5,13 @@ module Fyodor
   class OutputGenerator
     include Strings
 
-    def initialize(book, config)
+    def initialize(book, config, params={})
       @book = book
       @config = config
+      @params = params
     end
 
-    def content
+    def output
       ERB.new(@config["template"], trim_mode: '-').result(binding)
     end
 

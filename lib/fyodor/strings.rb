@@ -12,6 +12,7 @@ module Fyodor
                  Entry::TYPE[:note] => "note",
                  Entry::TYPE[:bookmark] => "bookmark",
                  Entry::TYPE[:clip] => "clip",
-                 nil=> "unrecognized" }
+                 nil => "unrecognized",
+                 :AUTHOR_NA => "Author Not Available"}
   end
 end

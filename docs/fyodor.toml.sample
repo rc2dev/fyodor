@@ -11,4 +11,4 @@ page = "page"
 time = "Added on"
 
 [output]
-extension = "md"
+filename = "%{author_fill} - %{title}.md"

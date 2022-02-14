@@ -25,11 +25,6 @@ module Fyodor
       @rej_dup += 1 if @entries.add?(entry).nil?
     end
 
-    def basename
-      base = @author.to_s.empty? ? "Author N/A - #{@title}" : "#{@author} - #{@title}"
-      base.strip
-    end
-
     def count_types
       list = group_by(&:type).map { |k, v| [k, v.size] }
       Hash[list]
