@@ -1,3 +1,4 @@
 /build/
-fyodor_output
+/output/
+fyodor_output/
 *.gem
