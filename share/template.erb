@@ -1,16 +1,20 @@
 <%# Fyodor's default template. -%>
 # <%= @book.basename %>
 
+<% if regular_entries.size > 0 -%>
 ## Highlights and notes
 
-<% if regular_entries.size > 0 -%>
-<%= render_entries(regular_entries) %>
-<% else -%>
-None.
-<% end -%>
+<% for entry in regular_entries -%>
+- <%= "_Note:_ " if entry.type == Entry::TYPE[:note] %><%= entry.text %>
 
+  <%= entry.desc_parsed? ? (SINGULAR[entry.type] + " @ " + place(entry)) : entry.desc %>
+
+<% end -%>
+<% end -%>
 <% if bookmarks.size > 0 -%>
 ## Bookmarks
 
-<%= render_entries(bookmarks) %>
+<% for bookmark in bookmarks -%>
+- <%= bookmark.desc_parsed? ? place(bookmark) : bookmark.desc %>
+<% end -%>
 <% end -%>
